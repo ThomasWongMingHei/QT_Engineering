@@ -40,7 +40,7 @@ class BLP():
 
     # strSecurity: string, The GST Ticker with bloomberg convention, Example: TSLA US Equity 
     # strData: string of list, The list of datafields to be retrvied, can be searched from bloomberg terminal
-    # using FLDS to 
+    # using FLDS
 
     def bdp(self, strSecurity='US900123AL40 Govt', strData='PX_LAST', strOverrideField='', strOverrideValue=''):
         request = self.refDataSvc.createRequest('ReferenceDataRequest')
@@ -71,6 +71,12 @@ class BLP():
             print('error with '+strSecurity+' '+strData)
             output = pandas.np.nan
         return output
+
+
+    # strSecurity: string, The GST Ticker with bloomberg convention, Example: TSLA US Equity 
+    # strData: string of list, The list of datafields to be retrvied, can be searched from bloomberg terminal
+    # using FLDS
+    # startdate,enddate: datetime.date 
 
     def bdh(self, strSecurity='SPX Index', strData='PX_LAST', startdate=datetime.date(2014, 1, 1), enddate=datetime.date(2014, 1, 9), adjustmentSplit=False, periodicity='DAILY'):
         request = self.refDataSvc.createRequest('HistoricalDataRequest')
