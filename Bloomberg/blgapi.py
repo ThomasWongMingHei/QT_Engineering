@@ -77,6 +77,8 @@ class BLP():
     # strData: string of list, The list of datafields to be retrvied, can be searched from bloomberg terminal
     # using FLDS
     # startdate,enddate: datetime.date 
+    # adjustmentSplit: Boolean For equities adjust for dividends and splits
+    # periodicity: string, 'DAILY','WEEKLY','MONTHLY','QUARTERLY','SEMI_ANNUALLY','YEARLY'
 
     def bdh(self, strSecurity='SPX Index', strData='PX_LAST', startdate=datetime.date(2014, 1, 1), enddate=datetime.date(2014, 1, 9), adjustmentSplit=False, periodicity='DAILY'):
         request = self.refDataSvc.createRequest('HistoricalDataRequest')
@@ -109,6 +111,44 @@ class BLP():
         output.replace('#N/A History', pandas.np.nan, inplace=True)
         output.index = pandas.to_datetime(output.index)
         return output
+
+    # strSecurity: string, The GST Ticker with bloomberg convention, Example: TSLA US Equity 
+    # strData: string of list, The list of datafields to be retrvied, can be searched from bloomberg terminal
+    # using FLDS
+    # startdatetime,enddatetime: datetime.datetime
+
+    def intraday(self, strSecurity='SPX Index', strData='PX_LAST', startdatetime=datetime.date(2014, 1, 1), enddatetime=datetime.date(2014, 1, 9)):
+        request = self.refDataSvc.createRequest('HistoricalDataRequest')
+        request.append('securities', strSecurity)
+        if type(strData) == str:
+            strData = [strData]
+
+        for strD in strData:
+            request.append('fields', strD)
+
+        request.set('startDate', startdate.strftime('%Y%m%d'))
+        request.set('endDate', enddate.strftime('%Y%m%d'))
+        request.set('adjustmentSplit', 'TRUE' if adjustmentSplit else 'FALSE')
+        request.set('periodicitySelection', periodicity)
+        requestID = self.session.sendRequest(request)
+
+        while True:
+            event = self.session.nextEvent()
+            if event.eventType() == blpapi.event.Event.RESPONSE:
+                break
+
+        fieldDataArray = blpapi.event.MessageIterator(event).next().getElement(SECURITY_DATA).getElement(FIELD_DATA)
+        fieldDataList = [fieldDataArray.getValueAsElement(i) for i in range(0, fieldDataArray.numValues())]
+        outDates = [x.getElementAsDatetime(DATE) for x in fieldDataList]
+        output = pandas.DataFrame(index=outDates, columns=strData)
+
+        for strD in strData:
+            output[strD] = [x.getElementAsFloat(strD) for x in fieldDataList]
+
+        output.replace('#N/A History', pandas.np.nan, inplace=True)
+        output.index = pandas.to_datetime(output.index)
+        return output
+
 
     def bsrch(self, domain):
         '''
