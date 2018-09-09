@@ -1,0 +1,3 @@
+name,host,library,ticker,created
+SPX daily,localhost,EQ_D_1,SPX,N
+FTSE daily,localhost,EQ_D_1,FTSE,N

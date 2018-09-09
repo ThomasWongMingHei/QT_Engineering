@@ -1,0 +1,41 @@
+Make sure Microsoft Visual Studio is on the computer, otherwise get it through Software Hub 
+
+
+Download and unzip blpapi_cpp_3.8.18.1 and save at D:\bloomberg_api\ or any suitable path
+
+https://www.bloomberg.com/professional/support/api-library/
+
+
+3. Open anaconda prompt 
+
+
+4. Install packages 
+
+
+set PATH=%PATH%;D:\bloomberg_api\blpapi_cpp_3.8.18.1\bin
+
+python -m pip install --index-url=https://bloomberg.bintray.com/pip/simple blpapi
+pip 
+install pymongo
+
+pip install git+https://github.com/manahl/arctic.git
+
+
+5. Test running 
+
+python 
+
+import blpapi
+
+import pymongo
+
+
+
+
+
+
+
+6. Run the srcipt to download data
+
+python ../blgterminal_task.py
+
