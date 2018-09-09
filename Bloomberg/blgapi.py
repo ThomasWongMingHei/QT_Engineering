@@ -21,6 +21,30 @@ FIELD_EXCEPTIONS = blpapi.Name("fieldExceptions")
 FIELD_ID         = blpapi.Name("fieldId")
 SECURITY         = blpapi.Name("security")
 SECURITY_DATA    = blpapi.Name("securityData")
+BAR_DATA = blpapi.Name("barData")
+BAR_TICK_DATA = blpapi.Name("barTickData")
+OPEN = blpapi.Name("open")
+HIGH = blpapi.Name("high")
+LOW = blpapi.Name("low")
+CLOSE = blpapi.Name("close")
+VOLUME = blpapi.Name("volume")
+NUM_EVENTS = blpapi.Name("numEvents")
+TIME = blpapi.Name("time")
+RESPONSE_ERROR = blpapi.Name("responseError")
+SESSION_TERMINATED = blpapi.Name("SessionTerminated")
+CATEGORY = blpapi.Name("category")
+MESSAGE = blpapi.Name("message")
+
+
+#############################################
+# List of exchange code 
+
+
+Exchangestart={'NYSE':datetime.time(09, 30),'FX':datetime.time(00, 00)}
+Exchangeend={'NYSE':datetime.time(16, 30),'FX':datetime.time(23, 59)}
+
+
+
 
 ################################################
 class BLP():
@@ -116,18 +140,23 @@ class BLP():
     # startdatetime,enddatetime: datetime.datetime
     # eventtype: "TRADE","BID","ASK"
 
-    def blgbar(self, strSecurity='SPX Index', start=datetime.date(2018, 9, 4), end=datetime.date(2018, 9, 5),eventtype="TRADE",freq=1):
+    def blgbar(self, strSecurity='SPX Index', start=datetime.date(2018, 9, 4), end=datetime.date(2018, 9, 5),eventtype="TRADE",freq=1,exchangecode=None):
         request = self.refDataSvc.createRequest('IntradayBarRequest')
         request.append('security', strSecurity)
         request.set("eventType", eventtype)
         request.set("interval", freq)  # bar interval in minutes
 
         # process start and end time
-        # Default trading hour to be whole day,should depend on exchange 
-        tradehourstart="T00:00:00"
-        tradehourend="T23:59:59"
-        request.set('startDateTime', start.strftime('%Y%m%d')+tradehourstart)
-        request.set('endDateTime', end.strftime('%Y%m%d')+tradehourend)
+        # Default trading hour to be whole day,should depend on exchangecode
+        if not exchangecode:
+            startTime= datetime.datetime.combine(start, datetime.time(00, 00))
+            endTime=datetime.datetime.combine(end, datetime.time(23, 59))
+        else:
+            startTime= datetime.datetime.combine(start, Exchangestart[exchangecode])
+            endTime=datetime.datetime.combine(end, Exchangeend[exchangecode])
+
+        request.set('startDateTime', startTime)
+        request.set('endDateTime', endTime)
   
         requestID = self.session.sendRequest(request)
 
@@ -136,13 +165,18 @@ class BLP():
             if event.eventType() == blpapi.event.Event.RESPONSE:
                 break
 
-        fieldDataArray = blpapi.event.MessageIterator(event).next().getElement(SECURITY_DATA).getElement(FIELD_DATA)
+        fieldDataArray = blpapi.event.MessageIterator(event).next().getElement(BAR_DATA).getElement(BAR_TICK_DATA)
         fieldDataList = [fieldDataArray.getValueAsElement(i) for i in range(0, fieldDataArray.numValues())]
-        outDates = [x.getElementAsDatetime(DATE) for x in fieldDataList]
-        output = pandas.DataFrame(index=outDates, columns=strData)
+        outTime = [x.getElementAsDatetime(TIME) for x in fieldDataList]
+        strData=['OPEN','HIGH','LOW','CLOSE','NUM_EVENTS','VOLUME']
+        output = pandas.DataFrame(index=outTime, columns=strData)
+        output['OPEN'] = [x.getElementAsFloat(OPEN) for x in fieldDataList]
+        output['HIGH'] = [x.getElementAsFloat(HIGH) for x in fieldDataList]
+        output['LOW'] = [x.getElementAsFloat(LOW) for x in fieldDataList]
+        output['CLOSE'] = [x.getElementAsFloat(CLOSE) for x in fieldDataList]
+        output['NUM_EVENTS'] = [x.getElementAsInteger(NUM_EVENTS) for x in fieldDataList]
+        output['VOLUME'] = [x.getElementAsInteger(VOLUME) for x in fieldDataList]
 
-        for strD in strData:
-            output[strD] = [x.getElementAsFloat(strD) for x in fieldDataList]
 
         output.replace('#N/A History', pandas.np.nan, inplace=True)
         output.index = pandas.to_datetime(output.index)

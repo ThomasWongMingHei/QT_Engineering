@@ -10,6 +10,7 @@ set env variable for PATH to include the folder to blpapi C++ DSK so that blpapi
 import blgapi
 import pandas as pd
 import pymongo 
+from datetime import datetime 
 
 
 # Read the config file
@@ -24,8 +25,8 @@ for entry in configdf.iterrows():
     security=record['GST']
     fieldlist=record['Datafields'].split(',')
     freq=record['Frequency']
-    start=pd.to_datetime(record['Start'])
-    end=pd.to_datetime(record['End'])
+    start=datetime.strptime(record['Start'],'%Y%m%d').date()
+    end=datetime.strptime(record['End'],'%Y%m%d').date()
     sendmethod=record['Location']
     csvpath=record['Filepath']
     dburl=record['dburl']
