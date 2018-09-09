@@ -50,13 +50,9 @@ for entry in configdf.iterrows():
     if sendmethod=='mlab':
         client=pymongo.MongoClient(dburl)
         db = client.get_database(dbname)
-        db_cm = db[collectionname]
+        db_cm = db[dbcollection]
         db_cm.insert_many(df.to_dict('records'))
         client.close()
-
-
-
-
 
 # Close the bloomberg connection
 bloomberg.closeSession()
