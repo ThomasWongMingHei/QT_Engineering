@@ -9,11 +9,12 @@ https://www.bloomberg.com/professional/support/api-library/
 3. Open anaconda prompt 
 
 
+
 4. Install packages 
 
-
+set BLPAPI_ROOT=D:\bloomberg_api\blpapi_cpp_3.8.18.1
 set PATH=%PATH%;D:\bloomberg_api\blpapi_cpp_3.8.18.1\bin
-
+conda install cython
 python -m pip install --index-url=https://bloomberg.bintray.com/pip/simple blpapi
 pip 
 install pymongo

@@ -113,23 +113,22 @@ class BLP():
         return output
 
     # strSecurity: string, The GST Ticker with bloomberg convention, Example: TSLA US Equity 
-    # strData: string of list, The list of datafields to be retrvied, can be searched from bloomberg terminal
-    # using FLDS
     # startdatetime,enddatetime: datetime.datetime
+    # eventtype: "TRADE","BID","ASK"
 
-    def intraday(self, strSecurity='SPX Index', strData='PX_LAST', startdatetime=datetime.date(2014, 1, 1), enddatetime=datetime.date(2014, 1, 9)):
-        request = self.refDataSvc.createRequest('HistoricalDataRequest')
-        request.append('securities', strSecurity)
-        if type(strData) == str:
-            strData = [strData]
+    def blgbar(self, strSecurity='SPX Index', start=datetime.date(2018, 9, 4), end=datetime.date(2018, 9, 5),eventtype="TRADE",freq=1):
+        request = self.refDataSvc.createRequest('IntradayBarRequest')
+        request.append('security', strSecurity)
+        request.set("eventType", eventtype)
+        request.set("interval", freq)  # bar interval in minutes
 
-        for strD in strData:
-            request.append('fields', strD)
-
-        request.set('startDate', startdate.strftime('%Y%m%d'))
-        request.set('endDate', enddate.strftime('%Y%m%d'))
-        request.set('adjustmentSplit', 'TRUE' if adjustmentSplit else 'FALSE')
-        request.set('periodicitySelection', periodicity)
+        # process start and end time
+        # Default trading hour to be whole day,should depend on exchange 
+        tradehourstart="T00:00:00"
+        tradehourend="T23:59:59"
+        request.set('startDateTime', start.strftime('%Y%m%d')+tradehourstart)
+        request.set('endDateTime', end.strftime('%Y%m%d')+tradehourend)
+  
         requestID = self.session.sendRequest(request)
 
         while True:

@@ -24,8 +24,8 @@ for entry in configdf.iterrows():
     security=record['GST']
     fieldlist=record['Datafields'].split(',')
     freq=record['Frequency']
-    start=record['Start']
-    end=record['End']
+    start=pd.to_datetime(record['Start'])
+    end=pd.to_datetime(record['End'])
     sendmethod=record['Location']
     csvpath=record['Filepath']
     dburl=record['dburl']
