@@ -39,8 +39,7 @@ MESSAGE = blpapi.Name("message")
 #############################################
 # List of exchange code 
 
-
-Exchangestart={'NYSE':datetime.time(09, 30),'FX':datetime.time(00, 00)}
+Exchangestart={'NYSE':datetime.time(9, 30),'FX':datetime.time(00, 00)}
 Exchangeend={'NYSE':datetime.time(16, 30),'FX':datetime.time(23, 59)}
 
 
@@ -582,6 +581,8 @@ class ObserverStreamExample(Observer):
         output = kwargs['time'].strftime("%Y-%m-%d %H:%M:%S") + ' received ' + kwargs['security'] + ' ' + kwargs['field'] + '=' + str(kwargs['data'])
         output = output + '. CorrID '+str(kwargs['corrID']) + ' bbgTime ' + kwargs['bbgTime']
         print(output)
+        # We have for each update,consists of the time for the update,security,field and data in the kwargs dictionary,
+        # Could use these data to update a database or refresh a webpage
 
 
 def streamPatternExample():
