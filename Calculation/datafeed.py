@@ -87,7 +87,7 @@ def QT_df2mongo(client,dbname,collectionname,df):
     except:
         print('Not uploaded ', dbname,collectionname)
         
-
+# Read dataframe from mongo, used for pricing data,
 def QT_mongo2df(client,dbname,collectionname):
     
     db = client.get_database(dbname)
@@ -122,20 +122,22 @@ def QT_arctichost(host):
     return Arctic(host)
 
 # Download data to arctic db, try to append to existing table or create a bigger table 
-def QT_df2arctic (df,store,arcticcollectionname,ticker):
+def QT_df2arctic(df,store,arcticcollectionname,ticker,indexname=None,alternatename=''):
     # download df from mongo
     # remove duplicate documents(rows)
     # try to append to exisiting table in arctic 
     # if not possible then merge the existing tables to form a bigger table
     
-    #old implmentation, please change 
+    # Create collectionname if not exist
     try:
         library = store[arcticcollectionname]
     except:
         store.initialize_library(arcticcollectionname)       
     library = store[arcticcollectionname]
+
+    # trying to append the data 
     try:
-        library.append(ticker,df, metadata={'source': 'QT'})
+        library.append(ticker,df, metadata={'Name': alternatename})
         downloaded=True
     except:
         # Try to merge with the old dataframe
@@ -143,40 +145,32 @@ def QT_df2arctic (df,store,arcticcollectionname,ticker):
             temp=library.read(ticker)
             olddf=temp.data
             olddf.reset_index(inplace=True)
-            data.reset_index(inplace=True)
-            newdf=olddf.merge(data,how='outer')
-            newdf=qtmath.QT_setindex(newdf,time_fname,freq)
-            library.write(ticker,newdf, metadata={'source': 'QT'})
+            df.reset_index(inplace=True)
+            newdf=olddf.merge(df,how='outer')
+            newdf.set_index(indexname,inplace=True)
+            library.write(ticker,newdf, metadata={'Name': alternatename})
             downloaded=True
         except:
             print(ticker,' not updated')
-            list_of_fail.append(ticker)
-            tempname=now.strftime("%Y-%m-%d")+'temp'
-            store.initialize_library(tempname)  
-            library2=store[tempname]
-            library2.append(ticker,data, metadata={'source': 'QT'})
-            currentdir=os.getcwd()
-            filename=ticker+'temp.csv'
-            fname=currentdir+'/'+filename
-            data.to_csv(fname,columns=True)
             downloaded=False
     return [downloaded,ticker]
 
 # Move data between arctic collections with option to drop duplicates
 def QT_arctic2arctic(store1,arcticcollectionname1,ticker1,store2,arcticcollectionname2,ticker2,cleandata=True):
         
-    library = store[arcticcollectionname]
+    library1 = store1[arcticcollectionname1]
     try:
-        newlibrary=store[arcticprocessedname]
+        library2=store2[arcticcollectionname2]
     except:
-        store.initialize_library(arcticprocessedname)
-    newlibrary=store[arcticprocessedname]
-    daydf=library.read(ticker)
+        store2.initialize_library(arcticcollectionname2)
+    library2=store2[arcticcollectionname2]
+
+    df=library1.read(ticker1)
     if cleandata:
         newdf=df.drop_duplicates(keep='last')
     else:
-        newdf=daydf
-    newlibrary.write(ticker,newdf, metadata={'source': 'QT'})
+        newdf=df
+    library2.write(ticker2,newdf, metadata={'source': 'QT'})
 
 # read historical data from arctic 
 def QT_arctic2df(store,arcticcollectionname,ticker,start=None,end=None):

@@ -5,14 +5,18 @@ Require:
 Active Bloomberg terminal login
 set env variable for PATH to include the folder to blpapi C++ DSK so that blpapi can be imported
 
+CSV download method is for one off tasks
+Mongo download method is for daily/weekly updates
+
 """
 
 import blgapi
 import pandas as pd
 import pymongo 
+from datetime import datetime 
 
 
-# Read the config file
+# Read the config file or download from mlab 
 
 configdf=pd.read_csv('cfg_blgterminal.csv')
 bloomberg = blgapi.BLP()
@@ -24,8 +28,8 @@ for entry in configdf.iterrows():
     security=record['GST']
     fieldlist=record['Datafields'].split(',')
     freq=record['Frequency']
-    start=record['Start']
-    end=record['End']
+    start=datetime.strptime(record['Start'],'%Y%m%d').date()
+    end=datetime.strptime(record['End'],'%Y%m%d').date()
     sendmethod=record['Location']
     csvpath=record['Filepath']
     dburl=record['dburl']
@@ -47,7 +51,7 @@ for entry in configdf.iterrows():
         csvpath='Data/'+csvpath
         result.to_csv(csvpath)
 
-    if sendmethod=='mlab':
+    if sendmethod=='mongo':
         client=pymongo.MongoClient(dburl)
         db = client.get_database(dbname)
         db_cm = db[dbcollection]
