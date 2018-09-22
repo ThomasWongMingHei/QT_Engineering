@@ -12,7 +12,10 @@ System Design Specifications:
 
 
 Recent projects:
+
 QT-Database: Automating update of cloud database of historical prices of various asset classes
+
 QT-Risk: Real-time risk monitoring system for real and virtual portfolios of the fund
+
 QT-Analytics: An integrated platform to build proprietary quantitative models and trading strategies leveraging various kinds of Python technologies. 
 
