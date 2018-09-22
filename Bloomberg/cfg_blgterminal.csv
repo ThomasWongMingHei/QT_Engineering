@@ -1,5 +1,5 @@
 Subscription,GST,Datafields,Frequency,Start,End,Location,Filepath,dburl,dbname,dbcollection
-BDH,SPX Index,PX_LAST,Daily,,,mlab,,mongodb:/Thomas:Thomas123@ds147450.mlab.com:47450/dailyhistorical,dailyhistorical,SPX_Index
+BDH,SPX Index,PX_LAST,Daily,,,mlab,,,dailyhistorical,SPX_Index
 BDH,SPX Index,"OPEN,CLOSE,HIGH,LOW",Daily,2018-01-01,2018-09-30,CSV,SPX.csv,,,
 BDH,SPX Index,"OPEN,CLOSE,HIGH,LOW",Daily,2008-01-01,2018-10-05,CSV,SPX.csv,,,
 BDH,VNRT LN Equity,"OPEN,CLOSE,HIGH,LOW",Daily,2008-01-01,2018-10-05,CSV,VNRT.csv,,,
