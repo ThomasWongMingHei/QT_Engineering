@@ -1,19 +1,18 @@
-from __future__ import print_function
-from googleapiclient.discovery import build
-from httplib2 import Http
-from oauth2client import file, client, tools
-import io 
-from apiclient.http import MediaIoBaseDownload
-import pandas as pd
-import os
-
 # If modifying these scopes, delete the file token.json.
-
 
 def download_google_spreadsheet(file_id,filetype):
     """Shows basic usage of the Drive v3 API.
     Prints the names and ids of the first 10 files the user has access to.
     """
+
+    from googleapiclient.discovery import build
+    from httplib2 import Http
+    from oauth2client import file, client, tools
+    import io 
+    from apiclient.http import MediaIoBaseDownload
+    import pandas as pd
+    import os
+
     SCOPES = 'https://www.googleapis.com/auth/drive.readonly'
     store = file.Storage('token.json')
     creds = store.get()
