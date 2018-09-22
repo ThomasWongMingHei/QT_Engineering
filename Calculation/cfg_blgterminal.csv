@@ -1,4 +1,4 @@
 name,Subscription,GST,Datafields,Frequency,Start,End,Location,Filepath,dburl,dbname,dbcollection
-FTSE daily,BDH,SPX Index,PX_LAST,Daily,,,mongodb,,mongodb:/Thomas:Thomas123@ds147450.mlab.com:47450/dailyhistorical,dailyhistorical,FTSE_Index
-SPX daily,BDH,SPX Index,PX_LAST,Daily,,,mongodb,,mongodb:/Thomas:Thomas123@ds147450.mlab.com:47450/dailyhistorical,dailyhistorical,SPX_Index
+FTSE daily,BDH,SPX Index,PX_LAST,Daily,,,mongodb,,,dailyhistorical,FTSE_Index
+SPX daily,BDH,SPX Index,PX_LAST,Daily,,,mongodb,,,dailyhistorical,SPX_Index
 FTSE history,BDH,FTSE Index,"OPEN,CLOSE,HIGH,LOW",Daily,2018-01-01,2018-09-30,csv,SPX.csv,,,
