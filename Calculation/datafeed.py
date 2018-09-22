@@ -26,10 +26,7 @@ import random
 # Configuration for QT Database scripts 
 # =============================================================================
 
-DayDBurl  = 'mongodb://Thomas:Thomas123@ds147450.mlab.com:47450/dailyhistorical'
-DayDBname = 'dailyhistorical'
-TSDBurl   = 'mongodb://Thomas:Thomas123@ds147420.mlab.com:47420/timeseries'
-TSDBname  = 'timeseries'
+
 
 Dailycollection='QT_Daily'
 TScollection='QT_TimeSeries'
