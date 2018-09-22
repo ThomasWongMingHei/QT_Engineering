@@ -43,21 +43,37 @@ datafq='1min'
 # Mongodb, Arctic, csv, google spreadsheet 
 # =============================================================================
 
-def QT_df2gspread(df,gspath,worksheet):
-    # Autheticate google account 
-    # Upload dataframe 
-    # https://github.com/burnash/gspread
-    # https://github.com/robin900/gspread-dataframe
+def googledriveapi_csv2df(file_id,filetype='text/csv'):
+    """Shows basic usage of the Drive v3 API.
+    Prints the names and ids of the first 10 files the user has access to.
+    """
 
-    return None
-    
-def QT_gspread2df(gspath,worksheet):
-    # Autheticate google account 
-    # Download dataframe 
-    return None 
+    from googleapiclient.discovery import build
+    from httplib2 import Http
+    from oauth2client import file, client, tools
+    import io 
+    from apiclient.http import MediaIoBaseDownload
+    import pandas as pd
+    import os
 
-def QT_csv2gspread(csvpath,gspath,worksheet):
-    return None
+    SCOPES = 'https://www.googleapis.com/auth/drive.readonly'
+    store = file.Storage('token.json')
+    creds = store.get()
+    if not creds or creds.invalid:
+        flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
+        creds = tools.run_flow(flow, store)
+    service = build('drive', 'v3', http=creds.authorize(Http()))
+
+    filename='D:\\temp.csv'
+    request = service.files().export_media(fileId=file_id, mimeType=filetype)
+    fh = io.FileIO(filename, 'wb')
+    downloader = MediaIoBaseDownload(fh, request)
+    done = False
+    while done is False:
+        status, done = downloader.next_chunk()
+        #print("Download %d" % int(status.progress() * 100))
+    df=pd.read_csv(filename)
+    return df
 
 
 def QT_mongoclient(url):
