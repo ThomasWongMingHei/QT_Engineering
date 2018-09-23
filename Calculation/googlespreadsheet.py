@@ -23,7 +23,8 @@ print(sheet.get_all_values())
 df = pd.DataFrame(sheet.get_all_values())
 print(df) """
 
-def gspread_client(token='spreadsheettoken.json',credentials='spreadsheetcredentials.json',SCOPES='https://spreadsheets.google.com/feeds'):
+def gspread_client(token='spreadsheettoken.json',credentials='spreadsheetcredentials.json',SCOPES=['https://spreadsheets.google.com/feeds',
+         'https://www.googleapis.com/auth/drive']):
     """ Retrieve sheet data using OAuth credentials and Google Python API. """
     from oauth2client import file, client, tools
     import gspread
@@ -35,6 +36,12 @@ def gspread_client(token='spreadsheettoken.json',credentials='spreadsheetcredent
         creds = tools.run_flow(flow, store)
     gc = gspread.authorize(creds)
     return gc 
+
+def list_all_spreadsheet(gclient):
+    list_spreadsheet=gclient.openall()
+    for s in list_spreadsheet:
+        print('Sheet ID: ',s.id)
+        print('Sheet Name: ',s.title)
 
 
 import pandas as pd
@@ -81,8 +88,11 @@ def gsheet2df(service,spreadsheet_id,range_name="A1:Z20"):
         return df
 
 
-myservice=googledriveapi_setup()
+myclient=gspread_client()
+list_all_spreadsheet(myclient)
+
+""" myservice=googlesheetapi_setup()
 df = gsheet2df(myservice,'1-3oXy_ppVS64bkmxZ08vvTB_ASv2euMqs8RicjZJ01Y')
 print('Dataframe size = ', df.shape)
-print(df)
+print(df) """
 
