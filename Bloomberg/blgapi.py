@@ -87,12 +87,28 @@ class BLP():
             if event.eventType() == blpapi.event.Event.RESPONSE:
                 break
         try:
-            output = blpapi.event.MessageIterator(event).next().getElement(SECURITY_DATA).getValueAsElement(0).getElement(FIELD_DATA).getElementAsString(strData)
+            securitydataarray = blpapi.event.MessageIterator(event).next().getElement(SECURITY_DATA)
+
+            securityDatalist=[securitydataarray.getValueAsElement(i) for i in range(0, securitydataarray.numValues())]
+            securitynamelist=[x.getElementAsString(SECURITY) for x in securityDatalist]
+            fielddatalist=[x.getElement(FIELD_DATA) for x in securityDatalist]
+            fieldvalues=[y.getElementAsString(strData) for y in fielddatalist]
+
+            output=[]
+            for i in range(0, securitydataarray.numValues()):
+                securitydata=securitydataarray.getValueAsElement(i)
+                securityname=securitydata.getElementAsString(SECURITY)
+                record={'Security Name':securityname}
+                fieldData=securitydata.getElement(FIELD_DATA)
+                for field in fieldData.elements():
+                    record[field.name()]=field.getValueAsString()
+                output.append(record)
+            output = pandas.DataFrame(output)
             if output == '#N/A':
-                output = pandas.np.nan
+                output = pandas.DataFrame()
         except:
             print('error with '+strSecurity+' '+strData)
-            output = pandas.np.nan
+            output = pandas.DataFrame()
         return output
 
 
