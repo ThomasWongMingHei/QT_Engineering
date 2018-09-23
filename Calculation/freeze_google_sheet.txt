@@ -3,18 +3,17 @@ function onEdit(e) {
 }
 
 function freeze() {
-  Utilities.sleep(1500);
+  Utilities.sleep(500);
   var activeCell = SpreadsheetApp.getActiveSheet().getActiveCell();
   var formula = activeCell.getFormula();
   if(formula.slice( 0 , 14 - formula.length ) == "=GOOGLEFINANCE" ) {
     var temp = activeCell.getValue();
     activeCell.setValue(temp);
   }
-  if(formula.slice( 0 , 21 - formula.length ) == "=INDEX(GOOGLEFINANCE" ) {
+  if(formula.slice( 0 , 20 - formula.length ) == "=INDEX(GOOGLEFINANCE" ) {
     var temp = activeCell.getValue();
     activeCell.setValue(temp);
   }
-
 }
 
 function importRegex(url, regexInput) {
@@ -34,7 +33,7 @@ function importRegex(url, regexInput) {
 
 =INDEX(GOOGLEFINANCE("GOOG","all","01/01/2014", "01/01/2014", "DAILY"),2,1)
 
-=INDEX(GOOGLEFINANCE("GOOG","all","21/09/2018", "21/09/2018", "DAILY"),2,1)
+=INDEX(GOOGLEFINANCE("GOOG","all","19/09/2018", "21/09/2018", "DAILY"),2,1)
 
 
 =INDEX(GOOGLEFINANCE("GOOG","all","21/09/2018", 1, "DAILY"),2,2)
@@ -43,7 +42,9 @@ function importRegex(url, regexInput) {
 
 =INDEX(GOOGLEFINANCE("GOOG","all","21/09/2018", 1, "DAILY"),2,4)
 
+=GOOGLEFINANCE(B2,"price")
 
+=GOOGLEFINANCE(B2,"tradetime")
 
 =INDEX(GOOGLEFINANCE("GOOG","all","21/09/2018", 1, "DAILY"),2,1)
 

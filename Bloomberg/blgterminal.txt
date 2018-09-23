@@ -21,6 +21,7 @@ install pymongo
 
 pip install git+https://github.com/manahl/arctic.git
 pip install --upgrade google-api-python-client oauth2client
+pip install gspread
 
 
 5. Test running 
