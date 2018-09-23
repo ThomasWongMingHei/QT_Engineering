@@ -1,4 +1,4 @@
-Make sure Microsoft Visual Studio is on the computer, otherwise get it through Software Hub 
+(Optional) Make sure Microsoft Visual Studio is on the computer, otherwise get it through Software Hub 
 
 
 Download and unzip blpapi_cpp_3.8.18.1 and save at D:\bloomberg_api\ or any suitable path
@@ -20,6 +20,7 @@ pip
 install pymongo
 
 pip install git+https://github.com/manahl/arctic.git
+pip install --upgrade google-api-python-client oauth2client
 
 
 5. Test running 
