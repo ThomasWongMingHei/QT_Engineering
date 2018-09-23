@@ -67,7 +67,11 @@ class BLP():
 
     def bdp(self, strSecurity='US900123AL40 Govt', strData='PX_LAST', strOverrideField='', strOverrideValue=''):
         request = self.refDataSvc.createRequest('ReferenceDataRequest')
-        request.append('securities', strSecurity)
+        
+        if type(strSecurity) == str:
+            strSecurity = [strSecurity]
+        for strS in strSecurity:
+            request.append('securities', strS)
 
         if type(strData) == str:
             strData = [strData]
@@ -88,12 +92,6 @@ class BLP():
                 break
         try:
             securitydataarray = blpapi.event.MessageIterator(event).next().getElement(SECURITY_DATA)
-
-            securityDatalist=[securitydataarray.getValueAsElement(i) for i in range(0, securitydataarray.numValues())]
-            securitynamelist=[x.getElementAsString(SECURITY) for x in securityDatalist]
-            fielddatalist=[x.getElement(FIELD_DATA) for x in securityDatalist]
-            fieldvalues=[y.getElementAsString(strData) for y in fielddatalist]
-
             output=[]
             for i in range(0, securitydataarray.numValues()):
                 securitydata=securitydataarray.getValueAsElement(i)
@@ -109,6 +107,37 @@ class BLP():
         except:
             print('error with '+strSecurity+' '+strData)
             output = pandas.DataFrame()
+        return output
+
+
+    # getting reference data for one security and one data field only, support Array data return also 
+    def _bdp(self, strSecurity='US900123AL40 Govt', strData='PX_LAST', strOverrideField='', strOverrideValue=''):
+        request = self.refDataSvc.createRequest('ReferenceDataRequest')
+        request.append('securities', strSecurity)
+        request.append('fields', strData)
+
+        if strOverrideField != '':
+            o = request.getElement('overrides').appendElement()
+            o.setElement('fieldId', strOverrideField)
+            o.setElement('value', strOverrideValue)
+
+        requestID = self.session.sendRequest(request)
+
+        while True:
+            event = self.session.nextEvent()
+            if event.eventType() == blpapi.event.Event.RESPONSE:
+                break
+        try:
+            fieldData = blpapi.event.MessageIterator(event).next().getElement(SECURITY_DATA).getValueAsElement(0).getElement(FIELD_DATA)
+            if fieldData.isArray():
+                output=list(fieldData.values())
+            else:
+                output=fieldData.getElementAsString(strData)
+            if output == '#N/A':
+                output = pandas.np.nan
+        except:
+            print('error with '+strSecurity+' '+strData)
+            output = pandas.np.nan
         return output
 
 
