@@ -17,10 +17,31 @@ function freeze() {
 
 }
 
+function importRegex(url, regexInput) {
+  var output = '';
+  var fetchedUrl = UrlFetchApp.fetch(url, {muteHttpExceptions: true});
+  if (fetchedUrl) {
+    var html = fetchedUrl.getContentText();
+    if (html.length && regexInput.length) {
+      output = html.match(new RegExp(regexInput, 'i'))[1];
+    }
+  }
+  // Grace period to not overload
+  Utilities.sleep(1000);
+  return unescapeHTML(output);
+}
 
-=INDEX(GOOGLEFINANCE("GOOGLE","all","01/01/2014", "01/01/2014", "DAILY"),2,1)
+
+=INDEX(GOOGLEFINANCE("GOOG","all","01/01/2014", "01/01/2014", "DAILY"),2,1)
 
 =INDEX(GOOGLEFINANCE("GOOG","all","21/09/2018", "21/09/2018", "DAILY"),2,1)
+
+
+=INDEX(GOOGLEFINANCE("GOOG","all","21/09/2018", 1, "DAILY"),2,2)
+
+=INDEX(GOOGLEFINANCE("GOOG","all","21/09/2018", 1, "DAILY"),2,3)
+
+=INDEX(GOOGLEFINANCE("GOOG","all","21/09/2018", 1, "DAILY"),2,4)
 
 
 
@@ -36,9 +57,3 @@ function freeze() {
 list_of_ticker=['VAPX:LN','VUSEIDA:LN','VAFTIGA:LN',
                 'VDWXEIA:LN','VDEXEIA:LN','VAFTGAG:LN','VANEMPA:ID',
                 'VGSGSAG:ID','VUKEIIA:LN','VAPEJPA:ID']
-
-=INDEX(GOOGLEFINANCE("GOOG","all","21/09/2018", 1, "DAILY"),2,2)
-
-=INDEX(GOOGLEFINANCE("GOOG","all","21/09/2018", 1, "DAILY"),2,3)
-
-=INDEX(GOOGLEFINANCE("GOOG","all","21/09/2018", 1, "DAILY"),2,4)
