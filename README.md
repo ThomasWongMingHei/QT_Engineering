@@ -45,7 +45,4 @@ Workflow design:
 
 Workflow of retriving data from bloomberg terminal 
 
-Database Maintanace 
-
-
-Database maintainance and 
+Database Maintanace and updates
