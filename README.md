@@ -45,4 +45,6 @@ Workflow design:
 
 Workflow of retriving data from bloomberg terminal 
 
-Database Maintanace and updates
+Database updates (daily)
+
+Automated process status report through Slack 
