@@ -1,3 +1,0 @@
-name,host,library,ticker,GST,indexname,method,filepath,mongourl,mongoname,mongocollection
-SPX daily,localhost,EQ_D_1,SPX,SPX Index,DATE,mongo,,,dailyhistorical,SPX_Index
-FTSE daily,localhost,EQ_D_1,FTSE,FTSE Index,DATE,mongo,,,dailyhistorical,FTSE_Index
