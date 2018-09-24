@@ -24,21 +24,28 @@ Tentative Projects:
 Data Services:
 
 Download and store data from various data provider: IEX, Alpha Vantage, Quandl, Tiingo, Bloomberg
+
 Database design: Schema design for pricing and fundamental database in Arctic and MongoDB
 
 Web Application: 
 
 Display real-time and delayed price data from RESTful API providers and internal database
+
 Examples on caching and callback calculation nodes on web application (SecDB style design) 
 
 Back-testing:
 Enhancement of Quantopian backtester(zipline) with MongoDB/Arctic data bundle 
+
 Enhancement of Backtrader with MongoDB and new data class to create multi-asset strategy backtester, initial plans: equities, FX and futures, ETFs long-term plans: options and bonds 
 
 Trading models:
 Strategies and trading signal for Quantopian, Quant-connect and Quantatics platform 
 
-Workflow design: 
-Manual workflow of retriving data from bloomberg terminal 
-Manual workflow of getting data from Google Finance
+Workflow design:
+
+Workflow of retriving data from bloomberg terminal 
+
+Database Maintanace 
+
+
 Database maintainance and 
