@@ -25,24 +25,104 @@ import random
 # =============================================================================
 # Configuration for QT Database scripts 
 # =============================================================================
-
-
-
 Dailycollection='QT_Daily'
 TScollection='QT_TimeSeries'
-
 Dailyprocessedcollection='Daily'
 TSprocessedcollection='TimeSeries'
-
 Datefield='DATE'
 TSfield='DATE'
 datafq='1min'
+
+# =============================================================================
+# Folders conversions 
+# list files and subfolders 
+# =============================================================================
+
+def list_files(mypath):
+    from os import listdir 
+    from os.path import isfile, join 
+    files = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+    print(files)
+    return files
+
+def list_folders(mypath):
+    from os import listdir 
+    from os.path import isdir, join 
+    folders = [join(mypath, f) for f in listdir(mypath) if isdir(join(mypath, f))]
+    print(folders)
+    return folders
 
 # =============================================================================
 # Datafeed conversions 
 # Mongodb, Arctic, csv, google spreadsheet 
 # =============================================================================
 
+def gspread_client(token='spreadsheettoken.json',credentials='spreadsheetcredentials.json',SCOPES=['https://spreadsheets.google.com/feeds',
+         'https://www.googleapis.com/auth/drive']):
+    """ Retrieve sheet data using OAuth credentials and Google Python API. """
+    from oauth2client import file, client, tools
+    import gspread
+    # Setup the Sheets API
+    store = file.Storage(token)
+    creds = store.get()
+    if not creds or creds.invalid:
+        flow = client.flow_from_clientsecrets(credentials, SCOPES)
+        creds = tools.run_flow(flow, store)
+    gc = gspread.authorize(creds)
+    return gc 
+
+def list_all_spreadsheet(gclient):
+    list_spreadsheet=gclient.openall()
+    for s in list_spreadsheet:
+        print('Sheet ID: ',s.id)
+        print('Sheet Name: ',s.title)
+
+
+def googledriveapi_setup(token='drivetoken.json',credentials='drivecredentials.json',SCOPES='https://www.googleapis.com/auth/drive.readonly'):
+    from googleapiclient.discovery import build
+    from httplib2 import Http
+    from oauth2client import file, client, tools
+
+    store = file.Storage(token)
+    creds = store.get()
+    if not creds or creds.invalid:
+        flow = client.flow_from_clientsecrets(credentials, SCOPES)
+        creds = tools.run_flow(flow, store)
+    service = build('drive', 'v3', http=creds.authorize(Http()))
+    return service
+
+
+def googledriveapi_csv2df(service,file_id,filetype):
+
+    import io 
+    from apiclient.http import MediaIoBaseDownload
+    import pandas as pd 
+
+    filename='D:\\temp.csv'
+    request = service.files().export_media(fileId=file_id, mimeType=filetype)
+    fh = io.FileIO(filename, 'wb')
+    downloader = MediaIoBaseDownload(fh, request)
+    done = False
+    while done is False:
+        status, done = downloader.next_chunk()
+        #print("Download %d" % int(status.progress() * 100))
+    df=pd.read_csv(filename)
+    return df
+
+def googledriveapi_csv2pdf(service,file_id,filename='D:\\temp.pdf',filetype='application/pdf'):
+
+    import io 
+    from apiclient.http import MediaIoBaseDownload
+    import pandas as pd 
+
+    request = service.files().export_media(fileId=file_id, mimeType=filetype)
+    fh = io.FileIO(filename, 'wb')
+    downloader = MediaIoBaseDownload(fh, request)
+    done = False
+    while done is False:
+        status, done = downloader.next_chunk()
+        print("Download %d" % int(status.progress() * 100))
+    return None
 
 
 

@@ -29,7 +29,6 @@ def googledriveapi_csv2df(service,file_id,filetype):
         status, done = downloader.next_chunk()
         #print("Download %d" % int(status.progress() * 100))
     df=pd.read_csv(filename)
-    print(df)
     return df
 
 def googledriveapi_csv2pdf(service,file_id,filename='D:\\temp.pdf',filetype='application/pdf'):
