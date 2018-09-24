@@ -25,25 +25,41 @@ import random
 # =============================================================================
 # Configuration for QT Database scripts 
 # =============================================================================
-
-
-
 Dailycollection='QT_Daily'
 TScollection='QT_TimeSeries'
-
 Dailyprocessedcollection='Daily'
 TSprocessedcollection='TimeSeries'
-
 Datefield='DATE'
 TSfield='DATE'
 datafq='1min'
 
 # =============================================================================
-# Datafeed conversions 
-# Mongodb, Arctic, csv, google spreadsheet 
+# Folders conversions 
+# list files and subfolders 
 # =============================================================================
 
+def list_files(mypath):
+    from os import listdir 
+    from os.path import isfile, join 
+    files = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+    print(files)
+    return files
 
+def list_folders(mypath):
+    from os import listdir 
+    from os.path import isdir, join 
+    folders = [join(mypath, f) for f in listdir(mypath) if isdir(join(mypath, f))]
+    print(folders)
+    return folders
+
+# =============================================================================
+# Datafeed conversions 
+# Mongodb, Arctic, csv, google drive api, gspraed, pydrive
+# =============================================================================
+
+import QT_googledriveapi
+import QT_gspread
+import QT_pydrive 
 
 
 def QT_mongoclient(url):
