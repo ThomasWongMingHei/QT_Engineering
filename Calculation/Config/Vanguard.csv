@@ -1,0 +1,47 @@
+Name,Ticker
+Vanguard FTSE 100 UCITS ETF,LON:VUKE
+Vanguard FTSE North America UCITS ETF,LON:VNRT
+Vanguard FTSE 250 UCITS ETF,LON:VMID
+Vanguard S&P 500 UCITS ETF,LON:VUSA
+Vanguard FTSE Emerging Markets UCITS ETF,LON:VFEM
+Vanguard DAX UCITS ETF,LON:VDXX
+Vanguard Euro Stoxx 50 UCITS ETF,LON:VX5E
+Vanguard FTSE Developed Europe UCITS ETF,LON:VEUR
+Vanguard FTSE Developed Europe ex UK UCITS ETF,LON:VERX
+Vanguard FTSE All-World High Dividend Yield UCITS ETF,LON:VHYL
+Vanguard FTSE All-World UCITS ETF,LON:VWRL
+Vanguard FTSE Developed World UCITS ETF,LON:VEVE
+Vanguard Global Liquidity Factor UCITS ETF,LON:VLIQ
+Vanguard Global Minimum Volatility UCITS ETF,LON:VMVL
+Vanguard Global Momentum Factor UCITS ETF,LON:VMOM
+Vanguard Global Value Factor UCITS ETF,LON:VVAL
+Vanguard FTSE Japan UCITS ETF,LON:VJPN
+S&P 500 Index,INDEXCBOE:.INX
+Philadelphia Gold and Silver Index,INDEXNASDAQ:XAU
+S&P GSCI Crude Oil,INDEXSP:SPGSCL
+Cboe VIX Futures Indexes,INDEXCBOE:VIXJAN
+Cboe VIX Futures Indexes,INDEXCBOE:VIXFEB
+Cboe VIX Futures Indexes,INDEXCBOE:VIXMAR
+Cboe VIX Futures Indexes,INDEXCBOE:VIXAPR
+Cboe VIX Futures Indexes,INDEXCBOE:VIXMAY
+Cboe VIX Futures Indexes,INDEXCBOE:VIXJUN
+Cboe VIX Futures Indexes,INDEXCBOE:VIXJUL
+Cboe VIX Futures Indexes,INDEXCBOE:VIXAUG
+Cboe VIX Futures Indexes,INDEXCBOE:VIXSEP
+Cboe VIX Futures Indexes,INDEXCBOE:VIXOCT
+Cboe VIX Futures Indexes,INDEXCBOE:VIXNOV
+Cboe VIX Futures Indexes,INDEXCBOE:VIXDEC
+FTSE 100,INDEXFTSE:UKX
+FTSE 250,INDEXFTSE:MCX
+FTSE All-Share Index,INDEXFTSE:ASX
+FTSE SmallCap Index,INDEXFTSE:SMX
+VIX,INDEXCBOE:VIX
+CBOE Energy Sector ETF Volatility Index,INDEXCBOE:VXXLE
+CBOE NASDAQ Volatil Idx,INDEXCBOE:VXN
+Cboe Gold ETF Volatility Index,INDEXCBOE:GVZ
+CBOE Silver ETF Volatility Index,INDEXCBOE:VXSLV
+CBOE Gold Miners ETF Volatility Index,INDEXCBOE:VXGDX
+CBOE/NYMEX WTI Volatility Index,INDEXCBOE:OIV
+CBOE Crude Oil Volatility Index,INDEXCBOE:OVX
+Cboe/CME FX British Pound Volatility Index,INDEXCBOE:BPVIX
+Cboe SKEW Index,INDEXCBOE:SKEW

@@ -13,11 +13,10 @@ def _generate_cfg(namelist,tickerlist,tickercolumn,fieldnames,outputfile):
     length=len(tickerlist)
     for name in fieldnames:
         df[name]=['=GOOGLEFINANCE({column}{index},"{field}")'.format(column=tickercolumn,index=i,field=name) for i in range(2,length+2)]
-    print(df)
     df.to_csv(outputfile,index=False)
     return None
 
-def generate_cfg(inputfile,tickertype='',outputfile):
+def generate_cfg(inputfile,outputfile,tickertype=''):
 
     import pandas as pd 
 
@@ -36,5 +35,7 @@ def generate_cfg(inputfile,tickertype='',outputfile):
 
 
 if __name__ == '__main__':
-    generate_cfg('Googlefinanceinput.csv','','Googlefinancecfg.csv')
+    generate_cfg('Vanguard.csv','Vanguardcfg.csv')
+    generate_cfg('LSE_equities.csv','LSE_equitiescfg.csv')
+    generate_cfg('LSE_ETF.csv','LSE_ETFcfg.csv')
     

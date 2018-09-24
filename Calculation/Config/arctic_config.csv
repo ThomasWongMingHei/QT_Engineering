@@ -1,0 +1,3 @@
+name,host,library,ticker,GST,indexname,method,filepath,mongourl,mongoname,mongocollection
+SPX daily,localhost,EQ_D_1,SPX,SPX Index,DATE,mongo,,mongodb:/Thomas:Thomas123@ds147450.mlab.com:47450/dailyhistorical,dailyhistorical,SPX_Index
+FTSE daily,localhost,EQ_D_1,FTSE,FTSE Index,DATE,mongo,,mongodb:/Thomas:Thomas123@ds147450.mlab.com:47450/dailyhistorical,dailyhistorical,FTSE_Index
