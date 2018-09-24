@@ -24,7 +24,6 @@ def csv2sheet(gclient,csvfilename,spreadsheetname,sheetname):
     from gspread_dataframe import set_with_dataframe
     import pandas as pd 
     df=pd.read_csv(csvfilename)
-    print(df)
     currentsheet=gclient.open(spreadsheetname).worksheet(sheetname)
     set_with_dataframe(currentsheet, df)
     return None 
@@ -37,15 +36,40 @@ def sheet2df(gclient,spreadsheetname,sheetname,evaluate_formulas=True):
     df.dropna(axis=1,how='all',inplace=True)
     return df
 
+def _current_date():
+    from datetime import datetime
+    return datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+
+
+def _download_current_price(client,cfgfile,spreadsheet,sheet,email='qtengineeringcorestrats@gmail.com'):
+    import pandas as pd 
+    size=pd.read_csv(cfgfile).shape
+    try:
+        sh=client.open(spreadsheet)
+    except:
+        sh=client.create(spreadsheet)
+        sh.share(email, perm_type='user', role='writer')
+    try:
+        worksheet=sh.worksheet(sheet)
+    except:
+        worksheet=sh.add_worksheet(title=sheet,rows=str(size[0]),cols=str(size[1])) 
+    csv2sheet(client,cfgfile,spreadsheet,sheet)
+    import time 
+    time.sleep(2)
+    df=sheet2df(client,spreadsheet,sheet)
+    df.replace(to_replace=r"^#.*", value='', regex=True,inplace=True)
+    outputfile='Data/'+spreadsheet[14:]+_current_date()+'.csv'
+    df.to_csv(outputfile,index=False)
+    return None 
+
 if __name__ == '__main__':
     myclient=gspread_client()
-    list_all_spreadsheet(myclient)
-    csv2sheet(myclient,'Googlefinance.csv','Googlefinance_currentprice','Current')
-    import time
-    time.sleep(2)
-    mydf=sheet2df(myclient,'Googlefinance_currentprice','Current')
-    print(mydf)
-    mydf.to_csv('Googlefinanceoutput.csv',index=False)
+    #list_all_spreadsheet(myclient)
+    _download_current_price(myclient,'Config/Vanguardcfg.csv','Googlefinance_Vanguard','Current')
+    _download_current_price(myclient,'Config/LSE_ETFcfg.csv','Googlefinance_LSE_ETF','Current')
+    _download_current_price(myclient,'Config/LSE_equitiescfg.csv','Googlefinance_LSE_equities','Current')
+
+
 
 
 

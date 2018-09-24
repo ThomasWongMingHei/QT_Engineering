@@ -1,4 +1,0 @@
-Name,Ticker,tradetime,price,priceopen,high,low,volume,beta,beta.1
-A,LON:VUKE,24/09/2018 16:35:17,33.46,33.46,33.6,33.42,419054.0,#N/A (Function GOOGLEFINANCE parameter 2 value is  invalid for the symbol specified.),#N/A (Function GOOGLEFINANCE parameter 2 value is  invalid for the symbol specified.)
-B,LON:VMID,24/09/2018 16:35:16,32.74,32.89,32.92,32.72,8408.0,#N/A (Function GOOGLEFINANCE parameter 2 value is  invalid for the symbol specified.),#N/A (Function GOOGLEFINANCE parameter 2 value is  invalid for the symbol specified.)
-C,LON:VNRT,24/09/2018 16:30:00,55.0,55.04,55.04,55.0,1000.0,#N/A (Function GOOGLEFINANCE parameter 2 value is  invalid for the symbol specified.),#N/A (Function GOOGLEFINANCE parameter 2 value is  invalid for the symbol specified.)

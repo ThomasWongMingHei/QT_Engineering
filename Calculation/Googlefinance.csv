@@ -1,4 +1,0 @@
-Name,Ticker,tradetime,price,priceopen,high,low,volume
-A,LON:VUKE,"=GOOGLEFINANCE(B2,""tradetime"")","=GOOGLEFINANCE(B2,""price"")","=GOOGLEFINANCE(B2,""priceopen"")","=GOOGLEFINANCE(B2,""high"")","=GOOGLEFINANCE(B2,""low"")","=GOOGLEFINANCE(B2,""volume"")"
-B,LON:VMID,"=GOOGLEFINANCE(B3,""tradetime"")","=GOOGLEFINANCE(B3,""price"")","=GOOGLEFINANCE(B3,""priceopen"")","=GOOGLEFINANCE(B3,""high"")","=GOOGLEFINANCE(B3,""low"")","=GOOGLEFINANCE(B3,""volume"")"
-C,LON:VNRT,"=GOOGLEFINANCE(B4,""tradetime"")","=GOOGLEFINANCE(B4,""price"")","=GOOGLEFINANCE(B4,""priceopen"")","=GOOGLEFINANCE(B4,""high"")","=GOOGLEFINANCE(B4,""low"")","=GOOGLEFINANCE(B4,""volume"")"

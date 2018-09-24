@@ -3,6 +3,9 @@
 '''
 Google drive API for download files, alternative to pydrive for downloading files
 
+Setup: https://developers.google.com/drive/api/v3/quickstart/python
+Download the credentials.json file to working directory 
+
 '''
 
 
