@@ -21,8 +21,17 @@ def list_all_spreadsheet(gclient):
         print('Sheet Name: ',s.title)
 
 def csv2sheet(gclient,csvfilename,spreadsheetname,sheetname):
-    import gspread_dataframe
+    from gspread_dataframe import set_with_dataframe
+    import pandas as pd 
+    df=pd.read_csv(csvfilename)
+    currentsheet=gclient.open(spreadsheetname).worksheet(sheetname)
+    set_with_dataframe(currentsheet, df)
     return None 
+
+if __name__ == '__main__':
+    myclient=gspread_client()
+    list_all_spreadsheet(myclient)
+    csv2sheet(myclient,)
 
 
 

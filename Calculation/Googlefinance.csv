@@ -1,0 +1,4 @@
+,Name,Ticker,tradetime,price
+0,A,LON:VUKE,"=GOOGLEFINANCE(B2,""tradetime"")","=GOOGLEFINANCE(B2,""price"")"
+1,B,LON:VMID,"=GOOGLEFINANCE(B3,""tradetime"")","=GOOGLEFINANCE(B3,""price"")"
+2,C,LON:VNRT,"=GOOGLEFINANCE(B4,""tradetime"")","=GOOGLEFINANCE(B4,""price"")"

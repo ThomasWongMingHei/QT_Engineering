@@ -3,14 +3,10 @@ function onEdit(e) {
 }
 
 function freeze() {
-  Utilities.sleep(500);
+  Utilities.sleep(1000);
   var activeCell = SpreadsheetApp.getActiveSheet().getActiveCell();
   var formula = activeCell.getFormula();
   if(formula.slice( 0 , 14 - formula.length ) == "=GOOGLEFINANCE" ) {
-    var temp = activeCell.getValue();
-    activeCell.setValue(temp);
-  }
-  if(formula.slice( 0 , 20 - formula.length ) == "=INDEX(GOOGLEFINANCE" ) {
     var temp = activeCell.getValue();
     activeCell.setValue(temp);
   }
