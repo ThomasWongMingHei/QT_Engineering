@@ -40,12 +40,20 @@ def sheet2df(gclient,spreadsheetname,sheetname,evaluate_formulas=True):
 if __name__ == '__main__':
     myclient=gspread_client()
     list_all_spreadsheet(myclient)
-    csv2sheet(myclient,'Googlefinancecfg','Googlefinance_currentprice','Current')
+    csv2sheet(myclient,'LSE_equitiescfg.csv','Googlefinance_currentprice','Current')
     import time
     time.sleep(2)
     mydf=sheet2df(myclient,'Googlefinance_currentprice','Current')
     print(mydf)
     mydf.to_csv('Googlefinanceoutput.csv',index=False)
+
+    import pandas as pd 
+    mydf=sheet2df(myclient,'LSE_Equities','Shares')
+    df=pd.DataFrame()
+    df['Name']=mydf['Issuer Name']
+    df['Ticker']=['LON:'+ x for x in mydf['TIDM']]
+    df.to_csv('LSE_equities.csv',index=False)
+
 
 
 

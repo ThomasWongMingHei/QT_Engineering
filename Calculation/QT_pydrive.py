@@ -37,9 +37,24 @@ def create_pydrive_folder(drive,foldername):
     folder_id = folder['id']
     return {'Title':folder_title,'ID':folder_id}
 
-def rename_pydrivefolder(drive,oldname,newname):
+def rename_pydrive_folder(drive,oldname,newname):
+
+    querystr="mimeType='application/vnd.google-apps.folder' and title = '"+oldname+"'"
+    file_list = drive.ListFile({'q':querystr}).GetList()
+    for f in file_list:
+        f['title']=newname
+        f.Upload()
+    return None 
+
+def delete_pydrive_folder(drive,foldername):
+    querystr="mimeType='application/vnd.google-apps.folder' and title = '"+foldername+"'"
+    file_list = drive.ListFile({'q':querystr}).GetList()
+    for f in file_list:
+        f.Delete()
     return None 
 
 if __name__ == '__main__':
     mydrive=create_pydrive_auth()
-    create_pydrive_folder(mydrive,'QTDB_old')
+    delete_pydrive_folder(mydrive,'QTDB_old')
+    #create_pydrive_folder(mydrive,'QTDB_new')
+    rename_pydrive_folder(mydrive,'QTDB_new','QTDB_old')
