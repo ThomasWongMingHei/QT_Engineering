@@ -3,7 +3,17 @@ Guide: https://gsuitedevs.github.io/PyDrive/docs/build/html/quickstart.html
 Create “client_secrets.json” and place it in your working directory.
 '''
 
+def _list_files(currentpath):
+    from os import listdir 
+    from os.path import isfile, join 
+    files = [f for f in listdir(currentpath) if isfile(join(currentpath, f))]
+    return files
 
+def _list_folders(currentpath):
+    from os import listdir 
+    from os.path import isdir, join 
+    folders = [join(currentpath, f) for f in listdir(currentpath) if isdir(join(currentpath, f))]
+    return folders
 
 def create_pydrive_auth():
     from pydrive.auth import GoogleAuth

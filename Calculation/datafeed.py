@@ -34,22 +34,20 @@ TSfield='DATE'
 datafq='1min'
 
 # =============================================================================
-# Folders conversions 
+# Folders and files 
 # list files and subfolders 
 # =============================================================================
 
-def list_files(mypath):
+def list_files(currentpath):
     from os import listdir 
     from os.path import isfile, join 
-    files = [f for f in listdir(mypath) if isfile(join(mypath, f))]
-    print(files)
+    files = [f for f in listdir(currentpath) if isfile(join(currentpath, f))]
     return files
 
-def list_folders(mypath):
+def list_folders(currentpath):
     from os import listdir 
     from os.path import isdir, join 
-    folders = [join(mypath, f) for f in listdir(mypath) if isdir(join(mypath, f))]
-    print(folders)
+    folders = [join(currentpath, f) for f in listdir(currentpath) if isdir(join(currentpath, f))]
     return folders
 
 # =============================================================================
