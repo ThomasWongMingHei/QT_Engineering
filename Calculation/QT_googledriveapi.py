@@ -1,5 +1,10 @@
 # If modifying these scopes, delete the file token.json.
 
+'''
+Google drive API for download files, alternative to pydrive for downloading files
+
+'''
+
 def googledriveapi_setup(token='drivetoken.json',credentials='drivecredentials.json',SCOPES='https://www.googleapis.com/auth/drive.readonly'):
     from googleapiclient.discovery import build
     from httplib2 import Http
