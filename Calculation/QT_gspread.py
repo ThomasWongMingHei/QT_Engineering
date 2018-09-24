@@ -40,7 +40,7 @@ def sheet2df(gclient,spreadsheetname,sheetname,evaluate_formulas=True):
 if __name__ == '__main__':
     myclient=gspread_client()
     list_all_spreadsheet(myclient)
-    csv2sheet(myclient,'Googlefinance.csv','Googlefinance_currentprice','Current')
+    csv2sheet(myclient,'Googlefinancecfg','Googlefinance_currentprice','Current')
     import time
     time.sleep(2)
     mydf=sheet2df(myclient,'Googlefinance_currentprice','Current')
