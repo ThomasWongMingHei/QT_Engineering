@@ -24,14 +24,28 @@ def csv2sheet(gclient,csvfilename,spreadsheetname,sheetname):
     from gspread_dataframe import set_with_dataframe
     import pandas as pd 
     df=pd.read_csv(csvfilename)
+    print(df)
     currentsheet=gclient.open(spreadsheetname).worksheet(sheetname)
     set_with_dataframe(currentsheet, df)
     return None 
 
+def sheet2df(gclient,spreadsheetname,sheetname,evaluate_formulas=True):
+    from gspread_dataframe import get_as_dataframe
+    currentsheet=gclient.open(spreadsheetname).worksheet(sheetname)
+    df=get_as_dataframe(currentsheet,evaluate_formulas=evaluate_formulas)
+    df.dropna(axis=0,how='all',inplace=True)
+    df.dropna(axis=1,how='all',inplace=True)
+    return df
+
 if __name__ == '__main__':
     myclient=gspread_client()
     list_all_spreadsheet(myclient)
-    csv2sheet(myclient,)
+    csv2sheet(myclient,'Googlefinance.csv','Googlefinance_currentprice','Current')
+    import time
+    time.sleep(2)
+    mydf=sheet2df(myclient,'Googlefinance_currentprice','Current')
+    print(mydf)
+    mydf.to_csv('Googlefinanceoutput.csv',index=False)
 
 
 
