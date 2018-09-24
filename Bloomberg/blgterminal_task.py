@@ -50,6 +50,7 @@ for entry in configdf.iterrows():
     if sendmethod=='csv':
         csvpath='Data/'+csvpath
         result.to_csv(csvpath)
+        # send results through google drive api
 
     if sendmethod=='mongo':
         client=pymongo.MongoClient(dburl)
