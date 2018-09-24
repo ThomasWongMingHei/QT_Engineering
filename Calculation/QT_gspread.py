@@ -62,12 +62,18 @@ def _download_current_price(client,cfgfile,spreadsheet,sheet,email='qtengineerin
     df.to_csv(outputfile,index=False)
     return None 
 
+def download_current_price(client,tickerfile,cfgfile,spreadsheet,sheet,email='qtengineeringcorestrats@gmail.com'):
+    import googlefinance_cfg as gfcg 
+    gfcg.generate_cfg(tickerfile,cfgfile)
+    _download_current_price(client,cfgfile,spreadsheet,sheet,email='qtengineeringcorestrats@gmail.com')
+    return None 
+
 if __name__ == '__main__':
     myclient=gspread_client()
     #list_all_spreadsheet(myclient)
-    _download_current_price(myclient,'Config/Vanguardcfg.csv','Googlefinance_Vanguard','Current')
-    _download_current_price(myclient,'Config/LSE_ETFcfg.csv','Googlefinance_LSE_ETF','Current')
-    _download_current_price(myclient,'Config/LSE_equitiescfg.csv','Googlefinance_LSE_equities','Current')
+    download_current_price(myclient,'Config/Vanguard.csv','Config/Vanguardcfg.csv','Googlefinance_Vanguard','Current')
+    download_current_price(myclient,'Config/LSE_ETF.csv','Config/LSE_ETFcfg.csv','Googlefinance_LSE_ETF','Current')
+    download_current_price(myclient,'Config/LSE_equities.csv','Config/LSE_equitiescfg.csv','Googlefinance_LSE_equities','Current')
 
 
 
