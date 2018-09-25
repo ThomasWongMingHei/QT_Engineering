@@ -1,6 +1,12 @@
-# Example of google spreadsheet 
+'''
+Gspread 
 
-def gspread_client(token='spreadsheettoken.json',credentials='spreadsheetcredentials.json',SCOPES=['https://spreadsheets.google.com/feeds',
+Setup: https://developers.google.com/sheets/api/quickstart/python
+Download the credentials.json file to working directory 
+
+'''
+
+def gspread_client(token='token.json',credentials='credentials.json',SCOPES=['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']):
     """ Retrieve sheet data using OAuth credentials and Google Python API. """
     from oauth2client import file, client, tools
@@ -41,7 +47,7 @@ def _current_date():
     return datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
 
 
-def _download_current_price(client,cfgfile,spreadsheet,sheet,email='qtengineeringcorestrats@gmail.com'):
+def _download_current_price(client,cfgfile,spreadsheet,sheet,email='qtengineeringcorestrats@gmail.com',output='D:\QT_Engineering\Calculation\Data\\'):
     import pandas as pd 
     size=pd.read_csv(cfgfile).shape
     try:
@@ -58,7 +64,7 @@ def _download_current_price(client,cfgfile,spreadsheet,sheet,email='qtengineerin
     time.sleep(2)
     df=sheet2df(client,spreadsheet,sheet)
     df.replace(to_replace=r"^#.*", value='', regex=True,inplace=True)
-    outputfile='Data/'+spreadsheet[14:]+_current_date()+'.csv'
+    outputfile=output+spreadsheet[14:]+_current_date()+'.csv'
     df.to_csv(outputfile,index=False)
     return None 
 
@@ -69,11 +75,11 @@ def download_current_price(client,tickerfile,cfgfile,spreadsheet,sheet,email='qt
     return None 
 
 if __name__ == '__main__':
-    myclient=gspread_client()
+    myclient=gspread_client('token.json','D:\QT_Engineering\Calculation\credentials.json')
     #list_all_spreadsheet(myclient)
-    download_current_price(myclient,'Config/Vanguard.csv','Config/Vanguardcfg.csv','Googlefinance_Vanguard','Current')
-    download_current_price(myclient,'Config/LSE_ETF.csv','Config/LSE_ETFcfg.csv','Googlefinance_LSE_ETF','Current')
-    download_current_price(myclient,'Config/LSE_equities.csv','Config/LSE_equitiescfg.csv','Googlefinance_LSE_equities','Current')
+    download_current_price(myclient,'D:\QT_Engineering\Calculation\Config\Vanguard.csv','D:\QT_Engineering\Calculation\Config\Vanguardcfg.csv','Googlefinance_Vanguard','Current')
+    download_current_price(myclient,'D:\QT_Engineering\Calculation\Config\LSE_ETF.csv','D:\QT_Engineering\Calculation\Config\LSE_ETFcfg.csv','Googlefinance_LSE_ETF','Current')
+    download_current_price(myclient,'D:\QT_Engineering\Calculation\Config\LSE_equities.csv','D:\QT_Engineering\Calculation\Config\LSE_equitiescfg.csv','Googlefinance_LSE_equities','Current')
 
 
 

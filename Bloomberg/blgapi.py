@@ -186,7 +186,7 @@ class BLP():
 
     def blgbar(self, strSecurity='SPX Index', start=datetime.date(2018, 9, 4), end=datetime.date(2018, 9, 5),eventtype="TRADE",freq=1,exchangecode=None):
         request = self.refDataSvc.createRequest('IntradayBarRequest')
-        request.append('security', strSecurity)
+        request.set('security', strSecurity)
         request.set("eventType", eventtype)
         request.set("interval", freq)  # bar interval in minutes
 

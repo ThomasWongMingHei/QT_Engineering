@@ -5,14 +5,17 @@ Require:
 Active Bloomberg terminal login
 set env variable for PATH to include the folder to blpapi C++ DSK so that blpapi can be imported
 
-CSV download method is for one off tasks
-Mongo download method is for daily/weekly updates
+Need to refer to QT_pydrive and pip install pyDrive for downloading config from google drive 
 
 """
 
 import blgapi
+
 import pandas as pd
 import pymongo 
+import pydrive
+import QT_pydrive
+
 from datetime import datetime 
 
 
