@@ -75,7 +75,7 @@ def download_current_price(client,tickerfile,cfgfile,spreadsheet,sheet,email='qt
     return None 
 
 if __name__ == '__main__':
-    myclient=gspread_client('token.json','D:\QT_Engineering\Calculation\credentials.json')
+    myclient=gspread_client(credentials='D:\QT_Engineering\Calculation\credentials.json')
     #list_all_spreadsheet(myclient)
     download_current_price(myclient,'D:\QT_Engineering\Calculation\Config\Vanguard.csv','D:\QT_Engineering\Calculation\Config\Vanguardcfg.csv','Googlefinance_Vanguard','Current')
     download_current_price(myclient,'D:\QT_Engineering\Calculation\Config\LSE_ETF.csv','D:\QT_Engineering\Calculation\Config\LSE_ETFcfg.csv','Googlefinance_LSE_ETF','Current')
