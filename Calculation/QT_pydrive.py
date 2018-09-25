@@ -48,18 +48,32 @@ def rename_pydrive_folder(drive,oldname,newname):
 
 def delete_pydrive_folder(drive,foldername):
     querystr="mimeType='application/vnd.google-apps.folder' and title = '"+foldername+"'"
-    file_list = drive.ListFile({'q':querystr}).GetList()
-    for f in file_list:
+    folder_list = drive.ListFile({'q':querystr}).GetList()
+    for f in folder_list:
         f.Delete()
     return None 
 
-def upload_file_pydrive(drive,filename,foldername):
+
+# upload_file to a folder, foldername is unique by assumption 
+def upload_file2folder_pydrive(drive,filename,foldername):
+    querystr="mimeType='application/vnd.google-apps.folder' and title = '"+foldername+"'"
+    folderid = drive.ListFile({'q':querystr}).GetList()[0]['id']
+    file = drive.CreateFile({"parents": [{"kind": "drive#fileLink", "id": folderid}]})
+    file.SetContentFile(filename)
+    file.Upload()
     return None 
 
-def upload_file2folder(drive,foldername,folderpath):
-    currentfiles=_list_files(folderpath)
+def upload_file_pydrive(drive,filename):
+    file2 = drive.CreateFile()
+    file2.SetContentFile(filename)
+    file2.Upload()
+    return None
 
-    return None 
+def download_file_pydrive(drive,filename):
+    querystr="title = '"+filename+"'"
+    f = drive.ListFile({'q':querystr}).GetList()[0]
+    f.GetContentFile(filename)
+    return None
 
 
 def _backup_pydrive(drive,dir_to_backup,folder_id):
@@ -86,10 +100,10 @@ def _backup_pydrive(drive,dir_to_backup,folder_id):
         file.Upload()
         print('Backed up %s' % path)
 
-def backup_pydrive(drive,dir_to_backup,foldername):
+def upload_folder_pydrive(drive,dir_to_backup,foldername):
     querystr="mimeType='application/vnd.google-apps.folder' and title = '"+foldername+"'"
-    fileid = drive.ListFile({'q':querystr}).GetList()[0]['id']
-    _backup_pydrive(drive,dir_to_backup,fileid)
+    folderid = drive.ListFile({'q':querystr}).GetList()[0]['id']
+    _backup_pydrive(drive,dir_to_backup,folderid)
 
 def download_folder_pydrive(drive,foldername):
 
@@ -124,8 +138,11 @@ def download_folder_pydrive(drive,foldername):
 
 if __name__ == '__main__':
     mydrive=create_pydrive_auth()
+    """     
     delete_pydrive_folder(mydrive,'QTDB_old')
     rename_pydrive_folder(mydrive,'QTDB_new','QTDB_old')
     create_pydrive_folder(mydrive,'QTDB_new')
-    backup_pydrive(mydrive,'D:\QTDB_new','QTDB_new')
-    download_folder_pydrive(mydrive,'QTDB_new')
+    upload_folder_pydrive(mydrive,'D:\QTDB_new','QTDB_new')
+    download_folder_pydrive(mydrive,'QTDB_new') 
+    """
+    download_file_pydrive(mydrive,'LSE_equities')

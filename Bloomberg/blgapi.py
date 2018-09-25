@@ -37,7 +37,8 @@ MESSAGE = blpapi.Name("message")
 
 
 #############################################
-# List of exchange code 
+# List of exchange code and the start and end of trading hours 
+# used to reduce number of requests 
 
 Exchangestart={'NYSE':datetime.time(9, 30),'FX':datetime.time(00, 00)}
 Exchangeend={'NYSE':datetime.time(16, 30),'FX':datetime.time(23, 59)}
@@ -102,6 +103,7 @@ class BLP():
                     record[field.name()]=field.getValueAsString()
                 output.append(record)
             output = pandas.DataFrame(output)
+            output.set_index('Security Name',inplace=True)
             if output == '#N/A':
                 output = pandas.DataFrame()
         except:
@@ -186,7 +188,7 @@ class BLP():
 
     def blgbar(self, strSecurity='SPX Index', start=datetime.date(2018, 9, 4), end=datetime.date(2018, 9, 5),eventtype="TRADE",freq=1,exchangecode=None):
         request = self.refDataSvc.createRequest('IntradayBarRequest')
-        request.append('security', strSecurity)
+        request.set('security', strSecurity)
         request.set("eventType", eventtype)
         request.set("interval", freq)  # bar interval in minutes
 

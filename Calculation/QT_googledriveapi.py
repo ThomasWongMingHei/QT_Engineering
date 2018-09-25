@@ -9,9 +9,7 @@ Download the credentials.json file to working directory
 '''
 
 
-
-
-def googledriveapi_setup(token='drivetoken.json',credentials='drivecredentials.json',SCOPES='https://www.googleapis.com/auth/drive.readonly'):
+def googledriveapi_setup(token='drivetoken.json',credentials='drivecredentials.json',SCOPES='https://www.googleapis.com/auth/drive'):
     from googleapiclient.discovery import build
     from httplib2 import Http
     from oauth2client import file, client, tools

@@ -16,8 +16,8 @@ set BLPAPI_ROOT=D:\bloomberg_api\blpapi_cpp_3.8.18.1
 set PATH=%PATH%;D:\bloomberg_api\blpapi_cpp_3.8.18.1\bin
 conda install cython
 python -m pip install --index-url=https://bloomberg.bintray.com/pip/simple blpapi
-pip 
-install pymongo
+
+pip install pymongo
 
 pip install git+https://github.com/manahl/arctic.git
 pip install --upgrade google-api-python-client oauth2client
