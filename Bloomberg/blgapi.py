@@ -132,14 +132,14 @@ class BLP():
         try:
             fieldData = blpapi.event.MessageIterator(event).next().getElement(SECURITY_DATA).getValueAsElement(0).getElement(FIELD_DATA)
             if fieldData.isArray():
-                output=list(fieldData.values())
+                output={'Ticker':strSecurity,strData:list(fieldData.values())}
             else:
-                output=fieldData.getElementAsString(strData)
+                output={'Ticker':strSecurity,strData:fieldData.getElementAsString(strData)}
             if output == '#N/A':
-                output = pandas.np.nan
+                output = {}
         except:
             print('error with '+strSecurity+' '+strData)
-            output = pandas.np.nan
+            output = {}
         return output
 
 
