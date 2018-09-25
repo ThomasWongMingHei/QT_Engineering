@@ -111,8 +111,13 @@ def download_folder_pydrive(drive,foldername):
     files=drive.ListFile({'q':querystr}).GetList()
     for f in files:
         correctpath=_convert_path(f['title'])
-        os.remove(correctpath)
-        print('Removed file: ',correctpath)
+        backuppath=correctpath.replace('QTDB_new','QTDB_old')
+        if os.path.isfile(backuppath):
+            os.remove(backuppath)
+        os.rename(correctpath,backuppath)
+        if os.path.isfile(correctpath):
+            os.remove(correctpath)
+            print('Removed file: ',correctpath)
         f.GetContentFile(correctpath)
         print('Downloaded file: ',correctpath)
     return None 
