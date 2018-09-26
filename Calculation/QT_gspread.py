@@ -61,7 +61,7 @@ def _download_current_price(client,cfgfile,spreadsheet,sheet,email='qtengineerin
         worksheet=sh.add_worksheet(title=sheet,rows=str(size[0]),cols=str(size[1])) 
     csv2sheet(client,cfgfile,spreadsheet,sheet)
     import time 
-    time.sleep(2)
+    time.sleep(30)
     df=sheet2df(client,spreadsheet,sheet)
     df.replace(to_replace=r"^#.*", value='', regex=True,inplace=True)
     outputfile=output+spreadsheet[14:]+_current_date()+'.csv'
@@ -72,6 +72,7 @@ def download_current_price(client,tickerfile,cfgfile,spreadsheet,sheet,email='qt
     import googlefinance_cfg as gfcg 
     gfcg.generate_cfg(tickerfile,cfgfile)
     _download_current_price(client,cfgfile,spreadsheet,sheet,email='qtengineeringcorestrats@gmail.com')
+    print("Current data downloaded: ",tickerfile)
     return None 
 
 if __name__ == '__main__':
