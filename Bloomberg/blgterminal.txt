@@ -6,19 +6,18 @@ Download and unzip blpapi_cpp_3.8.18.1 and save at D:\bloomberg_api\ or any suit
 https://www.bloomberg.com/professional/support/api-library/
 
 
-3. Open anaconda prompt 
-
-
-
-4. Install packages 
-
+3. Set environmental variables for your account, using windows edit env variables for your account 
 set BLPAPI_ROOT=D:\bloomberg_api\blpapi_cpp_3.8.18.1
 set PATH=%PATH%;D:\bloomberg_api\blpapi_cpp_3.8.18.1\bin
+
+4. Install packages using Anaconda prompt 
+conda create -n env_bloomberg
+conda install python=3.5
 conda install cython
 python -m pip install --index-url=https://bloomberg.bintray.com/pip/simple blpapi
 
+pip install git+https://github.com/cuemacro/findatapy.git
 pip install pymongo
-
 pip install git+https://github.com/manahl/arctic.git
 pip install --upgrade google-api-python-client oauth2client
 pip install gspread
@@ -39,6 +38,29 @@ import pymongo
 
 
 6. Run the srcipt to download data
+
+
+Windows
+Locate the directory for the conda environment in your Anaconda Prompt by running in the command shell %CONDA_PREFIX%.
+
+Enter that directory and create these subdirectories and files:
+
+cd C:\Users\Thomas\AppData\Local\conda\conda\envs\env_prod
+mkdir .\etc\conda\activate.d
+mkdir .\etc\conda\deactivate.d
+type NUL > .\etc\conda\activate.d\env_vars.bat
+type NUL > .\etc\conda\deactivate.d\env_vars.bat
+
+Edit .\etc\conda\activate.d\env_vars.bat as follows:
+
+set MY_KEY='secret-key-value'
+set MY_FILE=C:\path\to\my\file
+
+Edit .\etc\conda\deactivate.d\env_vars.bat as follows:
+
+set MY_KEY=
+set MY_FILE=
+When you run activate analytics, the environment variables MY_KEY and MY_FILE are set to the values you wrote into the file. When you run deactivate, those variables are erased.
 
 python ../blgterminal_task.py
 
