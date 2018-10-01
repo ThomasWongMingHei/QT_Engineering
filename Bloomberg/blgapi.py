@@ -68,7 +68,7 @@ class BLP():
     # strData: string of list, The list of datafields to be retrvied, can be searched from bloomberg terminal
     # using FLDS
 
-    def bdp(self, strSecurity='US900123AL40 Govt', strData='PX_LAST', strOverrideField='', strOverrideValue=''):
+    def bdp(self, strSecurity='MSFT US Equity', strData='PX_LAST', strOverrideField='', strOverrideValue=''):
         request = self.refDataSvc.createRequest('ReferenceDataRequest')
         
         if type(strSecurity) == str:
@@ -618,13 +618,14 @@ def simpleHistoryRequest(securities=[], fields=[], startDate=datetime.datetime(2
 def excelEmulationExample():
     ##Examples of the Request/Response Paradigm
     bloomberg = BLP()
-    print(bloomberg.bdp('MSFT US Equity','PX_LAST'))
+    print(bloomberg.bdp(strSecurity=['MSFT US Equity','SPX Index'],strData=['PX_LAST','PX_OPEN']))
     print('')
-    print(bloomberg.bdp('MSFT US Equity','PX_LAST'))
+    print(bloomberg.blgbar())
     print('')
     print(bloomberg.bdh())
     print('')
     print(bloomberg.bdhOHLC())
+    print('')
     bloomberg.closeSession()
 
 
@@ -638,7 +639,7 @@ class ObserverStreamExample(Observer):
 
 
 def streamPatternExample():
-    stream = BLPStream('ESZ7 Index', ['BID', 'ASK'], 0, 1)
+    stream = BLPStream('SPX Index', ['BID', 'ASK'], 0, 1)
     #stream=BLPStream('XS1151974877 CORP',['BID','ASK'],0,1) #Note that for a bond only BID gets updated even if ASK moves.
     obs = ObserverStreamExample()
     stream.register(obs)
@@ -664,6 +665,8 @@ def BLPTSExample():
 
 def main():
     excelEmulationExample()
+    BLPTSExample()
+    streamPatternExample()
     pass
 
 if __name__ == '__main__':
