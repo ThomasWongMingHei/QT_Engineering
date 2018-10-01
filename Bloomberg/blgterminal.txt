@@ -16,7 +16,6 @@ set PATH=%PATH%H:\QT_Engineering\Bloomberg\bloomberg_api\blpapi_cpp_3.8.18.1\bin
 
 
 3. Install packages using Anaconda prompt 
-conda install cython
 python -m pip install --index-url=https://bloomberg.bintray.com/pip/simple blpapi
 pip install --upgrade google-api-python-client oauth2client
 pip install pyDrive
