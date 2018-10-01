@@ -7,13 +7,11 @@ https://www.bloomberg.com/professional/support/api-library/
 
 
 
-1. Create virtual env on conda 
-conda create -n env_bloomberg
 
-2. ### Set up env variables in env_prod using the method below (*) 
+
+
 
 3. Install packages using Anaconda prompt 
-conda install python=3.5
 conda install cython
 python -m pip install --index-url=https://bloomberg.bintray.com/pip/simple blpapi
 
