@@ -55,12 +55,14 @@ class BLP():
     """
 
     def __init__(self):
+        import time
         self.session = blpapi.Session()
         self.session.start()
-        self.session.openService('//BLP/refdata')
-        self.refDataSvc = self.session.getService('//BLP/refdata')
+        self.session.openService("//blp/refdata")
+        time.sleep(2)
+        self.refDataSvc = self.session.getService("//blp/refdata")
         self.session.openService("//blp/exrsvc")
-        self.refExrSvc = self.session.getService('//BLP/exrsvc')
+        self.refExrSvc = self.session.getService('//blp/exrsvc')
 
     # strSecurity: string, The GST Ticker with bloomberg convention, Example: TSLA US Equity 
     # strData: string of list, The list of datafields to be retrvied, can be searched from bloomberg terminal
@@ -104,12 +106,15 @@ class BLP():
                 output.append(record)
             output = pandas.DataFrame(output)
             output.set_index('Security Name',inplace=True)
+            return output
             if output == '#N/A':
                 output = pandas.DataFrame()
+                return output
         except:
-            print('error with '+strSecurity+' '+strData)
+            #print('error with '+strSecurity+' '+strData)
             output = pandas.DataFrame()
-        return output
+            return output
+        
 
 
     # getting reference data for one security and one data field only, support Array data return also 
@@ -613,9 +618,9 @@ def simpleHistoryRequest(securities=[], fields=[], startDate=datetime.datetime(2
 def excelEmulationExample():
     ##Examples of the Request/Response Paradigm
     bloomberg = BLP()
-    print(bloomberg.bdp())
+    print(bloomberg.bdp('MSFT US Equity','PX_LAST'))
     print('')
-    print(bloomberg.bdp('US900123AL40 Govt', 'YLD_YTM_BID', 'PX_BID', '200'))
+    print(bloomberg.bdp('MSFT US Equity','PX_LAST'))
     print('')
     print(bloomberg.bdh())
     print('')
@@ -658,6 +663,7 @@ def BLPTSExample():
 
 
 def main():
+    excelEmulationExample()
     pass
 
 if __name__ == '__main__':
