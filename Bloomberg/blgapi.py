@@ -55,18 +55,20 @@ class BLP():
     """
 
     def __init__(self):
+        import time
         self.session = blpapi.Session()
         self.session.start()
-        self.session.openService('//BLP/refdata')
-        self.refDataSvc = self.session.getService('//BLP/refdata')
+        self.session.openService("//blp/refdata")
+        time.sleep(2)
+        self.refDataSvc = self.session.getService("//blp/refdata")
         self.session.openService("//blp/exrsvc")
-        self.refExrSvc = self.session.getService('//BLP/exrsvc')
+        self.refExrSvc = self.session.getService('//blp/exrsvc')
 
     # strSecurity: string, The GST Ticker with bloomberg convention, Example: TSLA US Equity 
     # strData: string of list, The list of datafields to be retrvied, can be searched from bloomberg terminal
     # using FLDS
 
-    def bdp(self, strSecurity='US900123AL40 Govt', strData='PX_LAST', strOverrideField='', strOverrideValue=''):
+    def bdp(self, strSecurity='MSFT US Equity', strData='PX_LAST', strOverrideField='', strOverrideValue=''):
         request = self.refDataSvc.createRequest('ReferenceDataRequest')
         
         if type(strSecurity) == str:
@@ -104,12 +106,15 @@ class BLP():
                 output.append(record)
             output = pandas.DataFrame(output)
             output.set_index('Security Name',inplace=True)
+            return output
             if output == '#N/A':
                 output = pandas.DataFrame()
+                return output
         except:
-            print('error with '+strSecurity+' '+strData)
+            #print('error with '+strSecurity+' '+strData)
             output = pandas.DataFrame()
-        return output
+            return output
+        
 
 
     # getting reference data for one security and one data field only, support Array data return also 
@@ -613,13 +618,14 @@ def simpleHistoryRequest(securities=[], fields=[], startDate=datetime.datetime(2
 def excelEmulationExample():
     ##Examples of the Request/Response Paradigm
     bloomberg = BLP()
-    print(bloomberg.bdp())
+    print(bloomberg.bdp(strSecurity=['MSFT US Equity','SPX Index'],strData=['PX_LAST','PX_OPEN']))
     print('')
-    print(bloomberg.bdp('US900123AL40 Govt', 'YLD_YTM_BID', 'PX_BID', '200'))
+    print(bloomberg.blgbar())
     print('')
     print(bloomberg.bdh())
     print('')
     print(bloomberg.bdhOHLC())
+    print('')
     bloomberg.closeSession()
 
 
@@ -633,11 +639,14 @@ class ObserverStreamExample(Observer):
 
 
 def streamPatternExample():
-    stream = BLPStream('ESZ7 Index', ['BID', 'ASK'], 0, 1)
+    import time
+    stream = BLPStream('EURUSD Curncy', ['BID', 'ASK'], 0, 1)
     #stream=BLPStream('XS1151974877 CORP',['BID','ASK'],0,1) #Note that for a bond only BID gets updated even if ASK moves.
     obs = ObserverStreamExample()
     stream.register(obs)
-    stream.start()
+    stream.run()
+    time.sleep(30)
+    stream.closeSubscription()
 
 
 class ObserverRequestExample(Observer):
@@ -658,6 +667,9 @@ def BLPTSExample():
 
 
 def main():
+    excelEmulationExample()
+    BLPTSExample()
+    #streamPatternExample()
     pass
 
 if __name__ == '__main__':
