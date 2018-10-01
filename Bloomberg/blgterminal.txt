@@ -19,7 +19,7 @@ set PATH=%PATH%H:\QT_Engineering\Bloomberg\bloomberg_api\blpapi_cpp_3.8.18.1\bin
 conda install cython
 python -m pip install --index-url=https://bloomberg.bintray.com/pip/simple blpapi
 
-pip install git+https://github.com/cuemacro/findatapy.git
+# pip install git+https://github.com/cuemacro/findatapy.git ## require [ython>3.4 does not work on Imperial computers
 pip install pymongo
 pip install git+https://github.com/manahl/arctic.git
 pip install --upgrade google-api-python-client oauth2client
