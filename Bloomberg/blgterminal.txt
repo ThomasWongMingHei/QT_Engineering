@@ -1,4 +1,4 @@
-(Optional) Make sure Anaconda2 is on the computer,  get it through Software Hub 
+(Optional) Make sure Anaconda2 and git is on the computer,  get it through Software Hub 
 
 
 (Optional) Download and unzip blpapi_cpp_3.8.18.1 and save at any suitable path
