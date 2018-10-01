@@ -1,13 +1,6 @@
 
 
-
-
 Make sure Anaconda2 and git is on the computer,  get it through Software Hub 
-
-
-H:\GitHub\QT_Engineering
-
-
 
 1. Clone the folder for QT_Engineering using Github Desktop 
 H:\GitHub\QT_Engineering should be the path 
@@ -22,8 +15,6 @@ set PATH=%PATH%H:\QT_Engineering\Bloomberg\bloomberg_api\blpapi_cpp_3.8.18.1\bin
 3. Install packages using Anaconda prompt 
 conda install cython
 python -m pip install --index-url=https://bloomberg.bintray.com/pip/simple blpapi
-
-# pip install git+https://github.com/cuemacro/findatapy.git ## require [ython>3.4 does not work on Imperial computers
 pip install pymongo
 pip install git+https://github.com/manahl/arctic.git
 pip install --upgrade google-api-python-client oauth2client
@@ -34,20 +25,15 @@ pip install pyDrive
 4. Test running 
 
 python 
-
 import blpapi
-
 import pymongo
-
-
-
-
-
-
-import findatapy
+import arctic
 import QT_pydrive
 5. Run the srcipt to download data
 
+
+
+~~~ No longer used ignore 
 (*) 
 Windows
 Locate the directory for the conda environment in your Anaconda Prompt by running in the command shell %CONDA_PREFIX%.
