@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 (Optional) Make sure Anaconda2 and git is on the computer,  get it through Software Hub 
@@ -130,3 +131,65 @@ When you run activate analytics, the environment variables are set to the values
 
 
 
+=======
+(Optional) Make sure Anaconda2 and git is on the computer,  get it through Software Hub 
+
+
+Start bbcomm it is in the blg folder
+
+1. Download the folder for QT_Engineering
+H:\QT_Engineering should be the path 
+
+
+2. Set env variables 
+set BLPAPI_ROOT=H:\QT_Engineering\Bloomberg\bloomberg_api\blpapi_cpp_3.8.18.1
+set PATH=%PATH%H:\QT_Engineering\Bloomberg\bloomberg_api\blpapi_cpp_3.8.18.1\bin;
+
+
+
+3. Install packages using Anaconda prompt 
+conda install cython
+python -m pip install --index-url=https://bloomberg.bintray.com/pip/simple blpapi
+pip install pymongo
+pip install git+https://github.com/manahl/arctic.git
+pip install --upgrade google-api-python-client oauth2client
+pip install pyDrive
+
+
+
+4. Test running 
+
+python 
+import blpapi
+import QT_pydrive
+
+5. Run the srcipt to download data
+
+
+Login to bloomberg terminal
+
+(*) 
+Windows
+Locate the directory for the conda environment in your Anaconda Prompt by running in the command shell %CONDA_PREFIX%.
+
+Enter that directory and create these subdirectories and files:
+
+cd C:\Users\Thomas\AppData\Local\conda\conda\envs\env_prod
+mkdir .\etc\conda\activate.d
+mkdir .\etc\conda\deactivate.d
+type NUL > .\etc\conda\activate.d\env_vars.bat
+type NUL > .\etc\conda\deactivate.d\env_vars.bat
+
+Edit .\etc\conda\activate.d\env_vars.bat as follows: (Replace D drive with the suitable drive 
+
+set BLPAPI_ROOT=H:\QT_Engineering\Bloomberg\bloomberg_api\blpapi_cpp_3.8.18.1
+set PATH=%PATH%H:\QT_Engineering\Bloomberg\bloomberg_api\blpapi_cpp_3.8.18.1\bin;
+
+Edit .\etc\conda\deactivate.d\env_vars.bat as follows:
+set BLPAPI_ROOT=
+
+When you run activate analytics, the environment variables are set to the values you wrote into the file. When you run deactivate, those variables are erased.
+
+
+
+>>>>>>> cf8194268d21cfac8b1030f01dcc353f305444bb
