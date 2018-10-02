@@ -183,6 +183,7 @@ class BLP():
         for strD in strData:
             output[strD] = [x.getElementAsFloat(strD) for x in fieldDataList]
 
+        output['Ticker Name']=strSecurity
         output.replace('#N/A History', pandas.np.nan, inplace=True)
         output.index = pandas.to_datetime(output.index)
         return output
@@ -230,6 +231,7 @@ class BLP():
 
 
         output.replace('#N/A History', pandas.np.nan, inplace=True)
+        output['Ticker Name']=strSecurity
         output.index = pandas.to_datetime(output.index)
         return output
 
@@ -626,6 +628,7 @@ def excelEmulationExample():
     print('')
     print(bloomberg.bdhOHLC())
     print('')
+    print(bloomberg.bsrch('fi:TSLA').head())
     bloomberg.closeSession()
 
 
@@ -668,7 +671,7 @@ def BLPTSExample():
 
 def main():
     excelEmulationExample()
-    BLPTSExample()
+    #BLPTSExample()
     #streamPatternExample()
     pass
 

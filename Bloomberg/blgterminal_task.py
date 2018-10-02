@@ -100,7 +100,6 @@ def download_currentdata(recentdf):
     QT_gspread.list_all_spreadsheet(gclient)
     recentdf=QT_gspread.sheet2df(gclient,'Bloomberg_recent_data_cfg','Recent_data')
     print(recentdf)
-
     return recentdf
 
 
