@@ -47,7 +47,7 @@ def _current_date():
     return datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
 
 
-def _download_current_price(client,cfgfile,spreadsheet,sheet,email='qtengineeringcorestrats@gmail.com',output='D:\\QT_Engineering\\Calculation\Data\\',timesleep=5):
+def _download_current_price(client,cfgfile,spreadsheet,sheet,email='qtengineeringcorestrats@gmail.com',output='H:\\QT_Engineering\\Calculation\Data\\',timesleep=5):
     import pandas as pd 
     size=pd.read_csv(cfgfile).shape
     try:
@@ -69,19 +69,19 @@ def _download_current_price(client,cfgfile,spreadsheet,sheet,email='qtengineerin
     empty=df[df['tradetime']=='']
     return empty 
 
-def download_current_price(client,tickerfile,cfgfile,spreadsheet,sheet,email='qtengineeringcorestrats@gmail.com',output='D:\\QT_Engineering\\Calculation\Data\\',timesleep=5):
+def download_current_price(client,tickerfile,cfgfile,spreadsheet,sheet,email='qtengineeringcorestrats@gmail.com',output='H:\\QT_Engineering\\Calculation\Data\\',timesleep=5):
     import googlefinance_cfg as gfcg 
     gfcg.generate_cfg(tickerfile,cfgfile)
-    empty=_download_current_price(client,cfgfile,spreadsheet,sheet,email='qtengineeringcorestrats@gmail.com',output='D:\\QT_Engineering\\Calculation\Data\\',timesleep=5)
+    empty=_download_current_price(client,cfgfile,spreadsheet,sheet,output=output,timesleep=timesleep,email='qtengineeringcorestrats@gmail.com')
     print("Current data downloaded: ",tickerfile)
     return empty 
 
 if __name__ == '__main__':
-    myclient=gspread_client(credentials='D:\QT_Engineering\Calculation\credentials.json')
+    myclient=gspread_client(credentials='H:\QT_Engineering\Calculation\credentials.json')
     #list_all_spreadsheet(myclient)
-    empty1=download_current_price(myclient,'D:\QT_Engineering\Calculation\Config\Vanguard.csv','D:\QT_Engineering\Calculation\Config\Vanguardcfg.csv','Googlefinance_Vanguard','Current')
-    empty2=download_current_price(myclient,'D:\QT_Engineering\Calculation\Config\LSE_ETF.csv','D:\QT_Engineering\Calculation\Config\LSE_ETFcfg.csv','Googlefinance_LSE_ETF','Current',timesleep=10)
-    empty3=download_current_price(myclient,'D:\QT_Engineering\Calculation\Config\LSE_equities.csv','D:\QT_Engineering\Calculation\Config\LSE_equitiescfg.csv','Googlefinance_LSE_equities','Current',timesleep=10)
+    empty1=download_current_price(myclient,'H:\QT_Engineering\Calculation\Config\Vanguard.csv','H:\QT_Engineering\Calculation\Config\Vanguardcfg.csv','Googlefinance_Vanguard','Current')
+    empty2=download_current_price(myclient,'H:\QT_Engineering\Calculation\Config\LSE_ETF.csv','H:\QT_Engineering\Calculation\Config\LSE_ETFcfg.csv','Googlefinance_LSE_ETF','Current',timesleep=10)
+    empty3=download_current_price(myclient,'H:\QT_Engineering\Calculation\Config\LSE_equities.csv','H:\QT_Engineering\Calculation\Config\LSE_equitiescfg.csv','Googlefinance_LSE_equities','Current',timesleep=10)
     import pandas as pd
     empty=pd.concat([empty1,empty2,empty3],ignore_index=True)
     print('Error tickers')
