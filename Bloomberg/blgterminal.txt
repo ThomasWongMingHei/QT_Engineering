@@ -2,7 +2,7 @@
 
 (Optional) Make sure Anaconda2 and git is on the computer,  get it through Software Hub 
 
-
+Login to blg terminal
 Start bbcomm it is in the blg folder
 
 1. Download the folder for QT_Engineering
