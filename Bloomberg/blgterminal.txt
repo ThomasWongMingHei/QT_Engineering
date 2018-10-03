@@ -11,7 +11,7 @@ H:\QT_Engineering should be the path
 
 2. Set env variables 
 set BLPAPI_ROOT=H:\QT_Engineering\Bloomberg\bloomberg_api\blpapi_cpp_3.8.18.1
-set PATH=%PATH%H:\QT_Engineering\Bloomberg\bloomberg_api\blpapi_cpp_3.8.18.1\bin;
+set PATH=%PATH%;H:\QT_Engineering\Bloomberg\bloomberg_api\blpapi_cpp_3.8.18.1\bin
 
 
 
