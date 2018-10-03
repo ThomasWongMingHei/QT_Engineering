@@ -23,8 +23,8 @@ import datetime
 pd.options.display.max_rows = 10000
 pd.options.display.max_columns = 30
 
-Downloadfolder='H:/GitHub/QT_Engineering/CurrentData/'
-Downloadfolder2='H:/GitHub/QT_Engineering/Data/'
+Downloadfolder='H:/QT_Engineering/CurrentData/'
+Downloadfolder2='H:/QT_Engineering/Data/'
 
 
 def _currentdate():
