@@ -11,40 +11,38 @@ Long term development plans: QT Engineering Overview.pdf
 System Design Specifications: 
 
 
-Recent projects:
+Overall projects scope 
 
-QT-Database: Automating update of cloud database of historical prices of various asset classes
-
-QT-Risk: Real-time risk monitoring system for real and virtual portfolios of the fund
+QT-Database: Integrated data management of pricing and fundamental data from various sources 
 
 QT-Analytics: An integrated platform to build proprietary quantitative models and trading strategies leveraging various kinds of Python technologies. 
 
-Tentative Projects:
+QT-Risk: Real-time risk monitoring system for real and virtual portfolios of the fund
+
+
+
+Ongoing projects
 
 Data Services:
 
-Download and store data from various data provider: IEX, Alpha Vantage, Quandl, Tiingo, Bloomberg
+Download and store data from various data provider: IEX, Alpha Vantage, Quandl, Bloomberg
 
 Database design: Schema design for pricing and fundamental database in Arctic and MongoDB
+
+
+Back-testing:
+
+Enhancement of Quantopian backtester(zipline) with MongoDB/Arctic data bundle 
+
+Enhancement of Backtrader with MongoDB and new data class to create multi-asset strategy backtester, initial plans: equities, FX and futures, ETFs long-term plans: options and bonds 
+
+Trading models:
+
+Strategies and trading signal for Quantopian, Quant-connect and Quantatics platform 
+
 
 Web Application: 
 
 Display real-time and delayed price data from RESTful API providers and internal database
 
 Examples on caching and callback calculation nodes on web application (SecDB style design) 
-
-Back-testing:
-Enhancement of Quantopian backtester(zipline) with MongoDB/Arctic data bundle 
-
-Enhancement of Backtrader with MongoDB and new data class to create multi-asset strategy backtester, initial plans: equities, FX and futures, ETFs long-term plans: options and bonds 
-
-Trading models:
-Strategies and trading signal for Quantopian, Quant-connect and Quantatics platform 
-
-Workflow design:
-
-Workflow of retriving data from bloomberg terminal 
-
-Database updates (daily)
-
-Automated process status report through Slack 
