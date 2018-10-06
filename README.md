@@ -8,8 +8,6 @@ QT Capital Engineering is the leader in technology and information system among 
 
 Long term development plans: QT Engineering Overview.pdf
 
-System Design Specifications: 
-
 
 Overall projects scope 
 
@@ -19,30 +17,3 @@ QT-Analytics: An integrated platform to build proprietary quantitative models an
 
 QT-Risk: Real-time risk monitoring system for real and virtual portfolios of the fund
 
-
-
-Ongoing projects
-
-Data Services:
-
-Download and store data from various data provider: IEX, Alpha Vantage, Quandl, Bloomberg
-
-Database design: Schema design for pricing and fundamental database in Arctic and MongoDB
-
-
-Back-testing:
-
-Enhancement of Quantopian backtester(zipline) with MongoDB/Arctic data bundle 
-
-Enhancement of Backtrader with MongoDB and new data class to create multi-asset strategy backtester, initial plans: equities, FX and futures, ETFs long-term plans: options and bonds 
-
-Trading models:
-
-Strategies and trading signal for Quantopian, Quant-connect and Quantatics platform 
-
-
-Web Application: 
-
-Display real-time and delayed price data from RESTful API providers and internal database
-
-Examples on caching and callback calculation nodes on web application (SecDB style design) 
