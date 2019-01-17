@@ -28,6 +28,10 @@ Downloadfolder2='H:/QT_Engineering/Data/'
 
 def _currentdate():
     return datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S_")
+    
+def _prasename(x):
+    y=x.replace('/','')
+    return y
 
 def _prase_name(name):
     import re
@@ -103,8 +107,8 @@ def download_historical_data(historydf):
         security=record['GST']
         fieldlist=record['Datafields'].split(',')
         freq=record['Frequency']
-        start=datetime.datetime.strptime(record['Start'],'%Y-%m-%d').date()
-        end=datetime.datetime.strptime(record['End'],'%Y-%m-%d').date()
+        start=datetime.datetime.strptime(record['Start'],'%d/%m/%Y').date()
+        end=datetime.datetime.strptime(record['End'],'%d/%m/%Y').date()
         sendmethod=record['Location']
         csvpath=record['Filepath']
         dburl=record['dburl']
@@ -138,7 +142,7 @@ def download_historical_data(historydf):
         # Save results 
         if sendmethod=='csv':
             csvpath=_prase_name(security)+'.csv'
-            csvpath=Downloadfolder2+_currentdate()+csvpath
+            csvpath=Downloadfolder2+_prasename(record['Start'])+_prasename(record['End'])+csvpath
             result.to_csv(csvpath)
             # send results through google drive api
     
@@ -148,8 +152,8 @@ def download_historical_data(historydf):
 # Read the config file
 def load_config():
     # load from local file
-    recentdf=pd.read_csv('H:\QT_Engineering\Bloomberg\recentcfg.csv')
-    historydf=pd.read_csv('H:\QT_Engineering\Bloomberg\historycfg.csv')
+    recentdf=pd.read_csv('H:/QT_Engineering/Bloomberg/recentcfg.csv')
+    historydf=pd.read_csv('H:/QT_Engineering/Bloomberg/historycfg.csv')
     print(recentdf)
     print(historydf)
     return{'Recent':recentdf,'History':historydf}
