@@ -15,8 +15,7 @@ pip install gspread gspread_dataframe
 """
 import pandas as pd
 import blgapi
-import QT_pydrive
-import QT_gspread
+
 
 import datetime 
 
@@ -96,9 +95,10 @@ def download_currentdata(recentdf):
     print(allcurrentbdp)
     allcurrentbdp.to_csv(filename)
 
-    gclient=QT_gspread.gspread_client(credentials='H:\GitHub\QT_Engineering\Bloomberg\credentials.json')
+    gclient=QT_gspread.gspread_client(credentials='H:\QT_Engineering\Bloomberg\credentials.json')
     QT_gspread.list_all_spreadsheet(gclient)
     recentdf=QT_gspread.sheet2df(gclient,'Bloomberg_recent_data_cfg','Recent_data')
+    
     print(recentdf)
     return recentdf
 
@@ -171,7 +171,9 @@ def upload_data():
 # Read the config file
 def load_config(gspread=True):
     if gspread:
-        gclient=QT_gspread.gspread_client(credentials='H:\GitHub\QT_Engineering\Bloomberg\credentials.json')
+        import QT_pydrive
+        import QT_gspread
+        gclient=QT_gspread.gspread_client(credentials='H:\QT_Engineering\Bloomberg\credentials.json')
         QT_gspread.list_all_spreadsheet(gclient)
         recentdf=QT_gspread.sheet2df(gclient,'Bloomberg_recent_data_cfg','Recent_data')
         historydf=QT_gspread.sheet2df(gclient,'Bloomberg_historical_data_cfg','Historical_data')
@@ -181,14 +183,19 @@ def load_config(gspread=True):
     else:
         print('')
         # load from local file
+        recentdf=pd.read_csv(H:\QT_Engineering\Bloomberg\recentcfg.csv')
+        historydf=pd.read_csv(H:\QT_Engineering\Bloomberg\historycfg.csv')
+        print(recentdf)
+        print(historydf)
+        return{'Recent':recentdf,'History':historydf}
 
 if __name__ == '__main__':
-    taskdf=load_config()
+    taskdf=load_config(gspread=False)
     # Start the bloomberg connection
     bloomberg = blgapi.BLP()
-    switch1=raw_input('Download current data? Y/N ')
-    switch2=raw_input('Download historical data? Y/N ')
-    switch3=raw_input('Upload data to Google Drive? Y/N ')
+    switch1=input('Download current data? Y/N ')
+    switch2=input('Download historical data? Y/N ')
+    switch3=input('Upload data to Google Drive? Y/N ')
     if switch1=='Y':
         download_currentdata(taskdf['Recent'])
     if switch2=='Y':
