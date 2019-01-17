@@ -1,6 +1,18 @@
-<<<<<<< HEAD:Bloomberg/blpapi-python-master/blgterminal.txt
+<<<<<<< HEAD
+# QT Engineering 
 
+Tasks to do:
 
+1. Add option to take files to remote drive, useful when downloading huge amount of data, 
+we can add download to remote drive option to the current and history data option
+
+2. Configuration of current data, how to determine start and end date for the intraday and historical data request
+
+3. Schedule for downloading current data at regular time intervals to generate intraday snapshot of non-pricing data
+
+4. Subscription to security: what to do when there is updates in pricing, design buffer to save the file 
+
+5. 
 (Optional) Make sure Anaconda2 and git is on the computer,  get it through Software Hub 
 
 
@@ -137,12 +149,25 @@ Edit .\etc\conda\deactivate.d\env_vars.bat as follows:
 set BLPAPI_ROOT=
 
 When you run activate analytics, the environment variables are set to the values you wrote into the file. When you run deactivate, those variables are erased.
+
 
 
 
 =======
+# QT Engineering 
 
+Tasks to do:
 
+1. Add option to take files to remote drive, useful when downloading huge amount of data, 
+we can add download to remote drive option to the current and history data option
+
+2. Configuration of current data, how to determine start and end date for the intraday and historical data request
+
+3. Schedule for downloading current data at regular time intervals to generate intraday snapshot of non-pricing data
+
+4. Subscription to security: what to do when there is updates in pricing, design buffer to save the file 
+
+5. 
 (Optional) Make sure Anaconda2 and git is on the computer,  get it through Software Hub 
 
 
@@ -282,4 +307,5 @@ When you run activate analytics, the environment variables are set to the values
 
 
 
->>>>>>> 5d98a5978564a2c7eda773c5a5f1238b70928e67:Bloomberg/blgterminal.txt
+
+>>>>>>> 5d98a5978564a2c7eda773c5a5f1238b70928e67
