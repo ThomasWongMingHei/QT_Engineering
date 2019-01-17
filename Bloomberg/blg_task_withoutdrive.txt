@@ -148,8 +148,8 @@ def download_historical_data(historydf):
 # Read the config file
 def load_config():
     # load from local file
-    recentdf=pd.read_csv(H:\QT_Engineering\Bloomberg\recentcfg.csv')
-    historydf=pd.read_csv(H:\QT_Engineering\Bloomberg\historycfg.csv')
+    recentdf=pd.read_csv('H:\QT_Engineering\Bloomberg\recentcfg.csv')
+    historydf=pd.read_csv('H:\QT_Engineering\Bloomberg\historycfg.csv')
     print(recentdf)
     print(historydf)
     return{'Recent':recentdf,'History':historydf}
