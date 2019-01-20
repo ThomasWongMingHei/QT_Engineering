@@ -1,4 +1,11 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Jan 18 18:39:48 2019
 
+@author: MW4315
+"""
+
+# -*- coding: utf-8 -*-
 """
 This script is to download data from bloomberg terminal and save as csv or upload to mlab
 Require: 
@@ -141,8 +148,8 @@ def download_historical_data(historydf):
       
         # Save results 
         if sendmethod=='csv':
-            csvpath=_prase_name(security)+'.csv'
-            csvpath=Downloadfolder2+_prasename(record['Start'])+' '+_prasename(record['End'])+csvpath
+            csvpath=_prase_name(security)+_prasename(record['Start'])+_prasename(record['End'])+'.csv'
+            csvpath=Downloadfolder2+csvpath
             result.to_csv(csvpath)
             # send results through google drive api
     
@@ -172,4 +179,5 @@ if __name__ == '__main__':
     bloomberg.closeSession()
 
 
-  
+    # 
+
